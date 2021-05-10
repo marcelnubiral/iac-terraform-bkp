@@ -1,2 +1,2 @@
 # iac-terraform
-Recetas de IaC - Terraform
+Recetas de Infraestructura como codigo (Terraform)
