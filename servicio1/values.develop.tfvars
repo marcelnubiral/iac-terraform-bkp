@@ -3,19 +3,19 @@ awx_inventory_group_name = "lnxCentos"
 awx_organization_name = "Default"
 awx_template_id = 13
 #awx_group_id = 12
-awx_user = "jenkins2"
-awx_pass = "jenkins2"
-awx_host = "http://xxxxxxxxxxxx"
+awx_user = "jenkins2" #usuario jenkins en AWX
+awx_pass = "jenkins2" #password jenkins en AWX
+awx_host = "https://172.21.1.149:8043/" 
 #
 aws_region     = "us-east-1"
-aws_account_id = "2xxxxxxxxxx"
-aws_role_name  = "jenkins_arcos_role"
+aws_account_id = "884913712919"
+aws_role_name  = "IAM-ROL-IAC-JNK"
 #
-ec2_ami = "ami-0be2609ba883822ec"
+ec2_ami = "ami-08acb886b9c95f1e5" #CIS Oracle Linux 8
 ec2_instance_type = "t2.micro"
-ec2_subnet_id = "subnet-xxxxxxxxxxx"
-ec2_key_name = "naas-xxxxxxxx"
-ec2_security_groups = ["sg-xxxxxxxxxxxx"]
+ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
+ec2_key_name = "key_arcos_sandbox"
+ec2_security_groups = ["sg-0ead77c0f02120937"]
 ec2_public_ip = false
 ec2_base_name = "webserver-"
 ec2_instance_count = 2
@@ -39,5 +39,10 @@ ebs_block_device = [
     #kms_key_id  = aws_kms_key.this.arn
 }
 ]
+
+#TAGS
+aws_so  = "LNX"
+aws_n   = "01" 
+aws_env = "DEV"
 
 

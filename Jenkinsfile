@@ -1,4 +1,4 @@
-String awxCredentials = "AWX2"
+String awxCredentials = "05fecac6-c0d8-4692-a0fb-ce4c3823f0b7"
 String AWS_DEFAULT_REGION = "us-east-1"
 String bran ="develop"
 

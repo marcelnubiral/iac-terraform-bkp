@@ -29,6 +29,8 @@ resource "awx_inventory_group" "default" {
     ansible_password: 'QChqTV4d3cbsG~~::E66#N'
     ansible_connection: 'winrm'
     ansible_winrm_server_cert_validation: 'ignore'
+    ansible_winrm_transport: 'basic'
+    ansible_winrm_scheme: 'https'
 YAML
 }
 
@@ -56,21 +58,24 @@ resource "aws_instance" "srv" {
     </powershell>
     EOF
   tags = {
-    Name = "poc-arcos-windows",
-    Owner = "xxxxxxxx"
+    Name                      = "NUB-${var.aws_so}${var.aws_n}-${var.aws_env}"
+    productname               = "iac-nubiral"
+    environment               = var.aws_env
+    shutdownschedule          = "8a20"
+    productowneremail         = "Gonzalo.Aresrivas@ar.mcd.com"
   }
 }
 
 
-resource "awx_host" "axwnode" {
-  count = local.instances_count
-  name         = "poc-arcos-demo-win${count.index}"
-  description  = "Nodo agregado desde terraform"
-  inventory_id = data.awx_inventory.default.id
-  group_ids = [ 
-    awx_inventory_group.default.id
-  ]
-  enabled   = true
-  variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}
+# resource "awx_host" "axwnode" {
+#   count = local.instances_count
+#   name         = "NUB-${var.aws_so}${count.index}-${var.aws_env}"
+#   description  = "Nodo agregado desde terraform"
+#   inventory_id = data.awx_inventory.default.id
+#   group_ids = [ 
+#     awx_inventory_group.default.id
+#   ]
+#   enabled   = true
+#   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+# }
 

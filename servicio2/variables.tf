@@ -33,3 +33,8 @@ variable "ebs_block_device" {
   type        = list(map(string))
   default     = []
 }
+
+# TAGS
+variable aws_so {}
+variable aws_n {}
+variable aws_env {}
