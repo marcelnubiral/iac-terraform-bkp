@@ -1,8 +1,8 @@
 terraform {
   backend "s3"  {
     encrypt = "true"
-    bucket = "arcos-terraform-tfstate"
-    dynamodb_table = "arcos-terraform-tfstate"
+    bucket = "repoadsbx2" #temporal
+    dynamodb_table = "lisandro-arcos-terraform-tfstate" #temporal
     region = "us-east-1"
     key = "windows/winservice.tfstate"
   }
