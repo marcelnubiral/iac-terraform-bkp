@@ -13,8 +13,7 @@ node {
     stage('AWS Credentials'){
         withCredentials([[
             $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'AWS2',
-            //credentialsId: 'IAM_USR_SVC_IAC_JNK',
+            credentialsId: 'IAM_USR_SVC_IAC_JNK',
             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {
