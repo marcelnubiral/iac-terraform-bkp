@@ -79,3 +79,4 @@ resource "aws_instance" "srv" {
 #   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 # }
 
+#comentario
