@@ -47,5 +47,3 @@ ebs_block_device = [
 aws_so  = "WIN"
 aws_n   = "01" 
 aws_env = "DEV"
-
-#comentario
