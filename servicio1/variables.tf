@@ -3,7 +3,7 @@ variable awx_pass {}
 variable awx_host {}
 #variable awx_inventory_id {}
 variable awx_template_id {}
-variable awx_group_id {}
+#variable awx_group_id {}
 variable awx_inventory_name {}
 variable awx_inventory_group_name {}
 variable awx_organization_name{}
