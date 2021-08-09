@@ -4,24 +4,24 @@ provider "aws" {
     role_arn = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_role_name}"
   }
 }
-provider "awx" {
-  hostname = var.awx_host
-  username = var.awx_user
-  password = var.awx_pass
-}
+# provider "awx" {
+#   hostname = var.awx_host
+#   username = var.awx_user
+#   password = var.awx_pass
+# }
 
-data "awx_organization" "default" {
-  name = var.awx_organization_name
-}
+# data "awx_organization" "default" {
+#   name = var.awx_organization_name
+# }
 
-data "awx_inventory" "default" {
-  name = var.awx_inventory_name
-}
+# data "awx_inventory" "default" {
+#   name = var.awx_inventory_name
+# }
 
-resource "awx_inventory_group" "default" {
-  name         = var.awx_inventory_group_name
-  inventory_id = data.awx_inventory.default.id
-}
+# resource "awx_inventory_group" "default" {
+#   name         = var.awx_inventory_group_name
+#   inventory_id = data.awx_inventory.default.id
+# }
 
 locals {
   instances_count = 1
