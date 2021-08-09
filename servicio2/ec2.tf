@@ -20,19 +20,19 @@ provider "aws" {
 #   name = var.awx_inventory_name
 # }
 
-resource "awx_inventory_group" "default" {
-    name            = var.awx_inventory_group_name
-    inventory_id    = data.awx_inventory.default.id
-    variables       = <<YAML
-    ---
-    ansible_user: 'ansible'
-    ansible_password: 'QChqTV4d3cbsG~~::E66#N'
-    ansible_connection: 'winrm'
-    ansible_winrm_server_cert_validation: 'ignore'
-    ansible_winrm_transport: 'basic'
-    ansible_winrm_scheme: 'https'
-YAML
-}
+# resource "awx_inventory_group" "default" {
+#     name            = var.awx_inventory_group_name
+#     inventory_id    = data.awx_inventory.default.id
+#     variables       = <<YAML
+#     ---
+#     ansible_user: 'ansible'
+#     ansible_password: 'QChqTV4d3cbsG~~::E66#N'
+#     ansible_connection: 'winrm'
+#     ansible_winrm_server_cert_validation: 'ignore'
+#     ansible_winrm_transport: 'basic'
+#     ansible_winrm_scheme: 'https'
+# YAML
+# }
 
 locals {
   instances_count = 1
