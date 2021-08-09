@@ -24,7 +24,6 @@ variable ec2_instance_count {}
 
 variable ec2_root_volume_size {}
 variable ec2_root_volume_type {}
-variable user_data {}
 variable INSTANCE_USERNAME{}
 variable INSTANCE_PASSWORD{}
 
