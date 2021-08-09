@@ -39,10 +39,10 @@ resource "aws_instance" "srv" {
 
   root_block_device = {
     delete_on_termination = true
-    encrtypted = true
-    kms_key_id = var.ec2_root_kms_id
-    volume_size = 20
-    volume_type = gp2
+    encrtypted            = true
+    kms_key_id            = var.ec2_root_kms_id
+    volume_size           = 20
+    volume_type           = gp2
   }
 
   tags = {
