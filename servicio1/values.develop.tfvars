@@ -44,4 +44,4 @@ ec2_root_kms_id = "e69c23d6-8e7d-4629-a3b1-1103cb5e8b4f"
 #TAGS
 aws_so  = "LNX"
 aws_n   = "01" 
-aws_env = "DEV"
+aws_env = "dev"
