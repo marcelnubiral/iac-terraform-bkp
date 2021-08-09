@@ -65,7 +65,7 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   tags = {
-    Name                      = "NUB-${var.aws_so}${var.aws_n}-${var.aws_env}"
+    Name                      = "NUB-${var.aws_so}0${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"

@@ -4,24 +4,25 @@ provider "aws" {
     role_arn = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_role_name}"
   }
 }
-# provider "awx" {
-#   hostname = var.awx_host
-#   username = var.awx_user
-#   password = var.awx_pass
-# }
 
-# data "awx_organization" "default" {
-#   name = var.awx_organization_name
-# }
+provider "awx" {
+  hostname = var.awx_host
+  username = var.awx_user
+  password = var.awx_pass
+}
 
-# data "awx_inventory" "default" {
-#   name = var.awx_inventory_name
-# }
+data "awx_organization" "default" {
+  name = var.awx_organization_name
+}
 
-# resource "awx_inventory_group" "default" {
-#   name         = var.awx_inventory_group_name
-#   inventory_id = data.awx_inventory.default.id
-# }
+data "awx_inventory" "default" {
+  name = var.awx_inventory_name
+}
+
+resource "awx_inventory_group" "default" {
+  name         = var.awx_inventory_group_name
+  inventory_id = data.awx_inventory.default.id
+}
 
 locals {
   instances_count = 1
@@ -44,7 +45,7 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   tags = {
-    Name                      = "NUB-${var.aws_so}${var.aws_n}-${var.aws_env}"
+    Name                      = "NUB-${var.aws_so}0${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"
@@ -52,14 +53,14 @@ resource "aws_instance" "srv" {
   }
 }
 
-# resource "awx_host" "axwnode" {
-#   count        = local.instances_count
-#   name         = "NUB-${var.aws_so}${count.index}-${var.aws_env}"
-#   description  = "Nodo agregado desde terraform"
-#   inventory_id = data.awx_inventory.default.id
-#   group_ids = [
-#     awx_inventory_group.default.id
-#   ]
-#   enabled   = true
-#   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-# }
+resource "awx_host" "axwnode" {
+  count        = local.instances_count
+  name         = "NUB-${var.aws_so}0${count.index}-${var.aws_env}"
+  description  = "Nodo agregado desde terraform"
+  inventory_id = data.awx_inventory.default.id
+  group_ids = [
+    awx_inventory_group.default.id
+  ]
+  enabled   = true
+  variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+}
