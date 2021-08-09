@@ -3,8 +3,8 @@ awx_inventory_group_name = "lnxCentos"
 awx_organization_name = "Default"
 awx_template_id = 9
 #awx_group_id = 12
-awx_user = "jenkins" #usuario jenkins en AWX
-awx_pass = "jenkins" #password jenkins en AWX
+awx_user = "AD569470@adhb.com" #usuario jenkins en AWX
+awx_pass = "M4d0k4m1" #password jenkins en AWX
 awx_host = "https://172.21.1.149:8043" 
 #
 aws_region     = "us-east-1"
