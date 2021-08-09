@@ -2,7 +2,7 @@ terraform {
   backend "s3"  {
     encrypt = "true"
     bucket = "repoadsbx2"
-    dynamodb_table = "iac-nubiral-terraform-tfstate"
+    dynamodb_table = "lisandro-arcos-terraform-tfstate"
     region = "us-east-1"
     key = "lnx/lnxservice.tfstate"
   }
