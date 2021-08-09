@@ -36,7 +36,7 @@ node {
     } 
 
     stage('checkout'){
-      sh 'ping 172.21.1.149'
+      sh 'telnet 172.21.1.149 8043'
     } 
    
     stage('Get services'){
