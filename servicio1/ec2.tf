@@ -36,6 +36,15 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
+
+  root_block_device = {
+    delete_on_termination = true
+    encrtypted = true
+    kms_key_id = var.ec2_root_kms_id
+    volume_size = 20
+    volume_type = gp2
+  }
+
   tags = {
     Name                      = "NUB-${var.aws_so}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"

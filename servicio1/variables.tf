@@ -24,6 +24,7 @@ variable ec2_instance_count {}
 
 variable ec2_root_volume_size {}
 variable ec2_root_volume_type {}
+variable ec2_root_kms_id {}
 
 variable "ebs_block_device" {
   type        = list(map(string))
