@@ -34,9 +34,9 @@ resource "awx_inventory_group" "default" {
 YAML
 }
 
-# locals {
-#   instances_count = 1
-# }
+locals {
+  instances_count = 1
+}
 
 resource "aws_instance" "srv" {
   count             = local.instances_count

@@ -23,9 +23,9 @@ provider "aws" {
 #   inventory_id = data.awx_inventory.default.id
 # }
 
-# locals {
-#   instances_count = 1
-# }
+locals {
+  instances_count = 1
+}
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
