@@ -37,7 +37,7 @@ resource "aws_instance" "srv" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
 
-  root_block_device = {
+  root_block_device {
     delete_on_termination = true
     encrtypted            = true
     kms_key_id            = var.ec2_root_kms_id
