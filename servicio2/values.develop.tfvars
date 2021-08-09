@@ -25,25 +25,7 @@ ec2_instance_count = 2
 ec2_root_volume_size = 30
 ec2_root_volume_type = "gp2"
 
-ebs_block_device = [
-{
-    device_name = "/dev/sdb"
-    volume_type = "gp2"
-    volume_size = 5
-    encrypted   = false
-    delete_on_termination = false
-    #kms_key_id  = aws_kms_key.this.arn
-},
-{
-    device_name = "/dev/sdc"
-    volume_type = "gp2"
-    volume_size = 5
-    encrypted   = false
-    #kms_key_id  = aws_kms_key.this.arn
-}
-]
-
 #TAGS
 aws_so  = "WIN"
 aws_n   = "01" 
-aws_env = "DEV"
+aws_env = "dev"
