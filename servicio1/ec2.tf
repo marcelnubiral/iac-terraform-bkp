@@ -11,9 +11,9 @@ provider "awx" {
   password = "M4d0k4m1"
 }
 
-data "awx_organization" "default" {
-  name = var.awx_organization_name
-}
+# data "awx_organization" "default" {
+#   name = var.awx_organization_name
+# }
 
 # data "awx_inventory" "default" {
 #   name = var.awx_inventory_name

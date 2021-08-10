@@ -34,10 +34,6 @@ node {
       checkout scm
       echo "Cloning files from branch =  ${getGitBranchName()}"
     } 
-
-    stage('checkout'){
-      sh 'nc -v -z 172.21.1.149 8043'
-    } 
    
     stage('Get services'){
         forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$1}' | sort | uniq", returnStdout: true).trim().split('\n')
