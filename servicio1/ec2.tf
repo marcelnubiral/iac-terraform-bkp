@@ -5,11 +5,11 @@ provider "aws" {
   }
 }
 
-# provider "awx" {
-#   hostname = var.awx_host
-#   username = var.awx_user
-#   password = var.awx_pass
-# }
+provider "awx" {
+  hostname = "https://172.21.1.149:8043"
+  username = "AD569470@adhb.com"
+  password = "M4d0k4m1"
+}
 
 # data "awx_organization" "default" {
 #   name = var.awx_organization_name
