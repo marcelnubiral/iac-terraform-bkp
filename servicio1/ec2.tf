@@ -8,21 +8,21 @@ provider "aws" {
 provider "awx" {
   hostname = "https://172.21.1.149:8043"
   username = "AD569470@adhb.com"
-  password = "M4d0k4m1"
+  password = "var.awx_pass"
 }
 
-# data "awx_organization" "default" {
-#   name = var.awx_organization_name
-# }
+data "awx_organization" "default" {
+  name = var.awx_organization_name
+}
 
-# data "awx_inventory" "default" {
-#   name = var.awx_inventory_name
-# }
+data "awx_inventory" "default" {
+  name = var.awx_inventory_name
+}
 
-# resource "awx_inventory_group" "default" {
-#   name         = var.awx_inventory_group_name
-#   inventory_id = data.awx_inventory.default.id
-# }
+resource "awx_inventory_group" "default" {
+  name         = var.awx_inventory_group_name
+  inventory_id = data.awx_inventory.default.id
+}
 
 locals {
   instances_count = 1
