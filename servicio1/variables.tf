@@ -20,7 +20,6 @@ variable ec2_key_name {}
 variable ec2_security_groups { type = list }
 variable ec2_public_ip {}
 variable ec2_base_name {}
-variable ec2_instance_count {}
 
 variable ec2_root_volume_size {}
 variable ec2_root_volume_type {}
