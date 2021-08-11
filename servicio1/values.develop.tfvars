@@ -11,7 +11,8 @@ aws_region     = "us-east-1"
 aws_account_id = "884913712919"
 aws_role_name  = "IAM-ROL-IAC-JNK"
 #
-ec2_ami = "ami-08acb886b9c95f1e5" #CIS Oracle Linux 8
+#ec2_ami = "ami-08acb886b9c95f1e5" #CIS Oracle Linux 8
+ec2_ami = "ami-0c2b8ca1dad447f8a" #prueba
 ec2_instance_type = "m5.large"
 ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
 ec2_key_name = "key_arcos_sandbox"
