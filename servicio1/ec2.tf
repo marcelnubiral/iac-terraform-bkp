@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 provider "awx" {
-  hostname = "172.21.1.149"
+  hostname = "https://172.21.1.149"
   username = var.awx_user
   password = var.awx_pass
 }
