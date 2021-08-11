@@ -35,7 +35,7 @@ resource "aws_instance" "srv" {
   key_name                    = var.ec2_key_name
   vpc_security_group_ids      = var.ec2_security_groups
   associate_public_ip_address = true
-  #source_dest_check           = false
+  source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
   root_block_device {
@@ -46,7 +46,7 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   tags = {
-    Name                      = "NUB-${var.aws_so}0${count.index}${var.aws_n}-${var.aws_env}"
+    Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"
@@ -65,3 +65,6 @@ resource "aws_instance" "srv" {
 #   enabled   = true
 #   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 # }
+
+
+#asdasd
