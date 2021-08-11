@@ -6,14 +6,14 @@ provider "aws" {
 }
 
 provider "awx" {
-  hostname = var.awx_host
-  username = var.awx_user
-  password = var.awx_pass
+  # hostname = var.awx_host
+  # username = var.awx_user
+  # password = var.awx_pass
 }
 
-# data "awx_organization" "default" {
-#   name = var.awx_organization_name
-# }
+data "awx_organization" "default" {
+  name = var.awx_organization_name
+}
 
 data "awx_inventory" "default" {
   name = var.awx_inventory_name
@@ -64,4 +64,3 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
- #asdasd
