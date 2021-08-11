@@ -6,9 +6,10 @@ provider "aws" {
 }
 
 provider "awx" {
-  # hostname = var.awx_host
-  # username = var.awx_user
-  # password = var.awx_pass
+  hostname = var.awx_host
+  username = var.awx_user
+  password = var.awx_pass
+  insecure = "true"
 }
 
 data "awx_organization" "default" {
