@@ -9,8 +9,8 @@ terraform {
   }
   required_providers {
     awx = {
-      source = "mrcrilly/awx"
-      version = "0.1.2"
+      source = "nolte/awx"
+      version = "0.2.2"
     }
   }  
 }

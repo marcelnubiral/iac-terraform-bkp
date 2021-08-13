@@ -6,7 +6,7 @@ provider "aws" {
 }
 
 provider "awx" {
-  hostname = var.awx_host
+  hostname = "https://172.21.1.149:8043"
   username = var.awx_user
   password = var.awx_pass
 }
@@ -19,10 +19,10 @@ data "awx_inventory" "default" {
   name = var.awx_inventory_name
 }
 
-# resource "awx_inventory_group" "default" {
-#   name         = var.awx_inventory_group_name
-#   inventory_id = data.awx_inventory.default.id
-# }
+resource "awx_inventory_group" "default" {
+  name         = var.awx_inventory_group_name
+  inventory_id = data.awx_inventory.default.id
+}
 
 locals {
   instances_count = 1
