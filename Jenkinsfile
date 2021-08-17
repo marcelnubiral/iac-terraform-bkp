@@ -27,7 +27,7 @@ node {
         env.AWX_PASS = PASSWORD   
     }   
 
-    stage('checkout'){
+stage('checkout'){
       echo 'Descargando codigo de SCM'
       sh 'rm -rf *'
       checkout scm
@@ -59,6 +59,7 @@ def echo_all(list, bn) {
                 echo "TEMPLATE_ID: , ${template_id}"
                 
                     stage('Terraform Init'){
+                            sh 'rm -rf .terraform'
                             sh "terraform init"
                         }
 
