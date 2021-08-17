@@ -11,28 +11,35 @@ provider "aws" {
 #   password = var.awx_pass
 # }
 
-# data "awx_organization" "default" {
-#   name = var.awx_organization_name
-# }
+provider "awx" {
+  hostname = var.awx_host
+  insecure = var.awx_insecure
+  username = var.awx_user
+  password = var.awx_pass
+}
+
+data "awx_organization" "default" {
+  name = var.awx_organization_name
+}
 
 
-# data "awx_inventory" "default" {
-#   name = var.awx_inventory_name
-# }
+data "awx_inventory" "default" {
+  name = var.awx_inventory_name
+}
 
-# resource "awx_inventory_group" "default" {
-#     name            = var.awx_inventory_group_name
-#     inventory_id    = data.awx_inventory.default.id
-#     variables       = <<YAML
-#     ---
-#     ansible_user: 'ansible'
-#     ansible_password: 'QChqTV4d3cbsG~~::E66#N'
-#     ansible_connection: 'winrm'
-#     ansible_winrm_server_cert_validation: 'ignore'
-#     ansible_winrm_transport: 'basic'
-#     ansible_winrm_scheme: 'https'
-# YAML
-# }
+resource "awx_inventory_group" "default" {
+    name            = var.awx_inventory_group_name
+    inventory_id    = data.awx_inventory.default.id
+    variables       = <<YAML
+    ---
+    ansible_user: 'ansible'
+    ansible_password: 'QChqTV4d3cbsG~~::E66#N'
+    ansible_connection: 'winrm'
+    ansible_winrm_server_cert_validation: 'ignore'
+    ansible_winrm_transport: 'basic'
+    ansible_winrm_scheme: 'https'
+YAML
+}
 
 locals {
   instances_count = 1
@@ -74,14 +81,16 @@ resource "aws_instance" "srv" {
 }
 
 
-# resource "awx_host" "axwnode" {
-#   count = local.instances_count
-#   name         = "NUB-${var.aws_so}${count.index}-${var.aws_env}"
-#   description  = "Nodo agregado desde terraform"
-#   inventory_id = data.awx_inventory.default.id
-#   group_ids = [ 
-#     awx_inventory_group.default.id
-#   ]
-#   enabled   = true
-#   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-# }
+resource "awx_host" "axwnode" {
+  count = local.instances_count
+  name         = "NUB-${var.aws_so}${count.index}-${var.aws_env}"
+  description  = "Nodo agregado desde terraform"
+  inventory_id = data.awx_inventory.default.id
+  group_ids = [ 
+    awx_inventory_group.default.id
+  ]
+  enabled   = true
+  variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+}
+
+#123
