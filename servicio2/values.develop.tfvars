@@ -5,7 +5,7 @@ awx_template_id = 10
 #awx_group_id = 12
 awx_user = "jenkins2" #usuario jenkins en AWX
 awx_pass = "jenkins2" #password jenkins en AWX
-awx_host = "https://172.21.1.149:8043/"
+awx_host = "https://172.21.1.149:8043" 
 awx_insecure = "true"
 #
 aws_region     = "us-east-1"
