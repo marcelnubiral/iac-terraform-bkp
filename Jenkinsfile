@@ -91,17 +91,17 @@ def echo_all(list, bn) {
                         }
                     }
                     //time
-/*                     stage ("wait_prior_starting_smoke_testing") {
+                     stage ("wait_prior_starting_smoke_testing") {
                     echo 'Waiting 2 minutes for deployment to complete prior starting smoke testing'
                     sleep 160 // seconds
-                    } */
-/*                     stage('Hardening') {
-                        build job: 'pipeline-hardening-lp', parameters: [
+                    } 
+                     stage('Hardening') {
+                        build job: 'IAC-HARDENING', parameters: [
                         string(name: 'SERVICE', value: "${item}"),
                         string(name: 'TEMPLATE_ID', value: "${template_id}"),
                         string(name: 'BRANCH', value: "${getGitBranchName()}")
                         ]
-                    } */
+                    } 
                 }
      }  else {
             echo "Dir not found"
