@@ -1,5 +1,5 @@
-awx_inventory_name = "ArcosLP"
-awx_inventory_group_name = "win"
+awx_inventory_name = "Arcos"
+awx_inventory_group_name = "windows"
 awx_organization_name = "Default"
 awx_template_id = 10
 #awx_group_id = 12
