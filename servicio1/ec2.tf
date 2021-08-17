@@ -5,8 +5,15 @@ provider "aws" {
   }
 }
 
+# provider "awx" {
+#   hostname = "https://172.21.1.149:8043"
+#   username = var.awx_user
+#   password = var.awx_pass
+# }
+
 provider "awx" {
-  hostname = "https://172.21.1.149:8043"
+  hostname = var.awx_host
+  insecure = var.awx_insecure
   username = var.awx_user
   password = var.awx_pass
 }
