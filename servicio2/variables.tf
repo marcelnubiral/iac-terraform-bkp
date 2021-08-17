@@ -1,6 +1,7 @@
 variable awx_user {}
 variable awx_pass {}
 variable awx_host {}
+variable awx_insecure {}
 #variable awx_inventory_id {}
 variable awx_template_id {}
 variable awx_group_id {}
