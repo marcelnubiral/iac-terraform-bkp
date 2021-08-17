@@ -25,15 +25,21 @@ node {
     withCredentials([usernamePassword(credentialsId: awxCredentials, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
         env.AWX_USER = USERNAME
         env.AWX_PASS = PASSWORD   
-    }
-    
+    }   
 
-     stage('checkout'){
+    stage('checkout'){
       echo 'Descargando codigo de SCM'
       sh 'rm -rf *'
       checkout scm
       echo "Cloning files from branch =  ${getGitBranchName()}"
-    } 
+    }
+
+    stage ('Plugins Provider AWX'){
+      sh 'rm -rf ~/.terraform.d/'
+      sh 'chmod 777 terraform-provider-awx'
+      sh 'mkdir -p ~/.terraform.d/plugins/terraform.arcos/local/awx/0.2.3/linux_amd64'
+      sh 'cp -r terraform-provider-awx  ~/.terraform.d/plugins/terraform.arcos/local/awx/0.2.3/linux_amd64/'     
+    }    
    
     stage('Get services'){
         forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$1}' | sort | uniq", returnStdout: true).trim().split('\n')
