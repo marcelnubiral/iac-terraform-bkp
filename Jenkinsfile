@@ -122,7 +122,7 @@ node {
     stage('AWS Credentials'){
         withCredentials([[
             $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'AWS2',
+            credentialsId: 'IAM_USR_SVC_IAC_JNK',
             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
         ]]) {
@@ -219,14 +219,6 @@ def echo_all(list, bn) {
         }
     }
 }
-Contraer
-
-
-
-marca_de_verificación_blanca
-ojos
-manos_levantadas
-
 
 
 
