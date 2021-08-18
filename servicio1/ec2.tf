@@ -5,12 +5,6 @@ provider "aws" {
   }
 }
 
-# provider "awx" {
-#   hostname = "https://172.21.1.149:8043"
-#   username = var.awx_user
-#   password = var.awx_pass
-# }
-
 provider "awx" {
   hostname = var.awx_host
   insecure = var.awx_insecure
@@ -71,3 +65,4 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
+##
