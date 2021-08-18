@@ -96,7 +96,7 @@ def echo_all(list, bn) {
                     sleep 160 // seconds
                     } 
                      stage('Hardening') {
-                        build job: 'IAC-HARDENING', parameters: [
+                        build job: 'IAC-HARDENING-AWS', parameters: [
                         string(name: 'SERVICE', value: "${item}"),
                         string(name: 'TEMPLATE_ID', value: "${template_id}"),
                         string(name: 'BRANCH', value: "${getGitBranchName()}")
