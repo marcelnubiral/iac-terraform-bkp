@@ -38,6 +38,12 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
+  user_data                   = <<EOF
+		#! /bin/bash
+    adduser ansible
+    echo "ansible:ansible" | chpasswd
+    usermod -aG wheel ansible
+	EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
