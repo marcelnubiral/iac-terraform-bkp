@@ -41,7 +41,7 @@ resource "aws_instance" "srv" {
   user_data                   = <<EOF
 		#! /bin/bash
     adduser ansible
-    echo "ansible:ansible" | chpasswd
+    echo "ansible:Arcos2021" | chpasswd
     usermod -aG wheel ansible
 	EOF
   root_block_device {
