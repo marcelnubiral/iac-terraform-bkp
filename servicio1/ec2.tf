@@ -41,7 +41,7 @@ resource "aws_instance" "srv" {
   user_data                   = <<EOF
 		#! /bin/bash
     sudo yum update -y
-    sudo yum install libsss_sudo
+    sudo yum install libsss_sudo -y
 	EOF
   root_block_device {
     delete_on_termination = true
