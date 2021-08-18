@@ -1,5 +1,5 @@
 {
-        "host_param": "win",
+        "host_param": "windows",
         "netbackup" : "true",
         "lvm" : [
         ],
