@@ -40,9 +40,9 @@ resource "aws_instance" "srv" {
   subnet_id                   = var.ec2_subnet_id
   user_data                   = <<EOF
 		#! /bin/bash
-    adduser ansible
-    echo "ansible:Arcos2021" | chpasswd
-    usermod -aG wheel ansible
+    sudo adduser ansible
+    sudo echo "ansible:Arcos2021" | chpasswd
+    sudo usermod -aG wheel ansible
 	EOF
   root_block_device {
     delete_on_termination = true
