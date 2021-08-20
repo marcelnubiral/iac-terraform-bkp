@@ -55,14 +55,32 @@ resource "aws_instance" "srv" {
 }
 
 resource "awx_host" "axwnode" {
-  count        = local.instances_count
-  name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
-  description  = "Nodo agregado desde terraform"
-  inventory_id = data.awx_inventory.default.id
-  group_ids = [
+  count                  = local.instances_count
+  name                   = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+  description            = "Nodo agregado desde terraform"
+  iam_instance_profile   = aws_iam_instance_profile.ec2-access-profile.name
+  inventory_id           = data.awx_inventory.default.id
+  group_ids              = [
     awx_inventory_group.default.id
   ]
-  enabled   = true
-  variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+  enabled                = true
+  variables              = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
+
+
+
+
+
+data "aws_iam_role" "ec2-s3-role" {
+  name = "AmazonSSMRoleForInstancesQuickSetup"
+}
+
+
+resource "aws_iam_instance_profile" "ec2-access-profile" {
+  name = "ec2_access_profile"
+  role = aws_iam_role.ec2-s3-role.name
+}
+
 #
+
+#role para S3 AmazonSSMRoleForInstancesQuickSetup
