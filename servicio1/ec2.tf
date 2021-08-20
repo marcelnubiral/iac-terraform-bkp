@@ -84,3 +84,5 @@ resource "awx_host" "axwnode" {
 #
 
 #role para S3 AmazonSSMRoleForInstancesQuickSetup
+
+#
