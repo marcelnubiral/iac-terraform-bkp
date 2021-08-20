@@ -78,7 +78,7 @@ data "aws_iam_role" "ec2-s3-role" {
 
 resource "aws_iam_instance_profile" "ec2-access-profile" {
   name = "ec2_access_profile"
-  role = aws_iam_role.ec2-s3-role.name
+  role = data.aws_iam_role.ec2-s3-role.name
 }
 
 #
