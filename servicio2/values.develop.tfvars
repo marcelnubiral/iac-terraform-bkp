@@ -16,7 +16,7 @@ INSTANCE_USERNAME = "ansible"
 INSTANCE_PASSWORD = "QChqTV4d3cbsG~~::E66#N"
 
 ec2_ami = "ami-0da8e1012c9d84c40" #CIS Windows 2019
-ec2_instance_type = "m5.large"
+ec2_instance_type = "t2.micro"
 ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
 ec2_key_name = "key_arcos_sandbox"
 ec2_security_groups = ["sg-0ead77c0f02120937"]

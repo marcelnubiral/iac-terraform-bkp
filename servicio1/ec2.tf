@@ -71,18 +71,15 @@ resource "awx_host" "axwnode" {
 
 
 
-# data "aws_iam_role" "ec2-s3-role" {
+# data "aws_iam_role" "s3-access-role" {
 #   name = "AmazonSSMRoleForInstancesQuickSetup"
 # }
 
 
 # resource "aws_iam_instance_profile" "ec2-access-profile" {
 #   name = "ec2_access_profile"
-#   role = data.aws_iam_role.ec2-s3-role.name
+#   role = data.aws_iam_role.s3-access-role.name
 # }
-
-#
 
 #role para S3 AmazonSSMRoleForInstancesQuickSetup
 
-#
