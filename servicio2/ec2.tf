@@ -55,7 +55,7 @@ resource "aws_instance" "srv" {
     cd C:\Users\${var.INSTANCE_USERNAME}
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
-    .\ConfigureRemotingForAnsible.ps1
+    .\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
     </powershell>
     EOF
   root_block_device {
@@ -86,3 +86,5 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
+
+#
