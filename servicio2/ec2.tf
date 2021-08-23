@@ -52,6 +52,7 @@ resource "aws_instance" "srv" {
     <powershell>
     net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
     net localgroup administrators ${var.INSTANCE_USERNAME} /add
+    msiexec.exe /package PowerShell-7.1.4-win-x64.msi /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
     cd C:\Users\${var.INSTANCE_USERNAME}
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
