@@ -48,17 +48,17 @@ resource "aws_instance" "srv" {
   source_dest_check  = false
   instance_type      = var.ec2_instance_type
   subnet_id          = var.ec2_subnet_id
-  # user_data     = <<EOF
-  #   <powershell>
-  #   net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
-  #   net localgroup administrators ${var.INSTANCE_USERNAME} /add
-  #   msiexec.exe /package PowerShell-7.1.4-win-x64.msi /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
-  #   cd C:\Users\${var.INSTANCE_USERNAME}
-  #   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-  #   Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
-  #   powershell.exe -ExecutionPolicy ByPass -File .\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
-  #   </powershell>
-  #   EOF
+  user_data     = <<EOF
+    <powershell>
+    net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
+    net localgroup administrators ${var.INSTANCE_USERNAME} /add
+    msiexec.exe /package PowerShell-7.1.4-win-x64.msi /quiet ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=1 REGISTER_MANIFEST=1
+    cd C:\Users\${var.INSTANCE_USERNAME}
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
+    powershell.exe -ExecutionPolicy ByPass -File .\ConfigureRemotingForAnsible.ps1 -ForceNewSSLCert
+    </powershell>
+    EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
