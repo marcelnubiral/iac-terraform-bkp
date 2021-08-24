@@ -54,8 +54,11 @@ resource "aws_instance" "srv" {
     net localgroup administrators ${var.INSTANCE_USERNAME} /add
     Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile C:\Users\ansible\Downloads\winrm.ps1
-    C:\Users\ansible\Downloads\winrm.ps1 -forcenewsslcert
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+    $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+    (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+    powershell.exe -ExecutionPolicy ByPass -File $file -forcenewsslcert
     </powershell>
     EOF
   root_block_device {
