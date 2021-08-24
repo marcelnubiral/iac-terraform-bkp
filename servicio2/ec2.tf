@@ -56,7 +56,6 @@ resource "aws_instance" "srv" {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
     .\ConfigureRemotingForAnsible.ps1
-    Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
     </powershell>
     EOF
   root_block_device {
