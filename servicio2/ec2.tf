@@ -52,11 +52,10 @@ resource "aws_instance" "srv" {
     <powershell>
     net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
     net localgroup administrators ${var.INSTANCE_USERNAME} /add
-    cd C:\Users\${var.INSTANCE_USERNAME}
     Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
-    .\ConfigureRemotingForAnsible.ps1
+    Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile C:\Users\ansible\Downloads\winrm.ps1
+    C:\Users\ansible\Downloads\winrm.ps1 -forcenewsslcert
     </powershell>
     EOF
   root_block_device {
@@ -87,6 +86,3 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
-
-
-##
