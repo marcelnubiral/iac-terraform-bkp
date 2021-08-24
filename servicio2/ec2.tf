@@ -54,7 +54,6 @@ resource "aws_instance" "srv" {
     net localgroup administrators ${var.INSTANCE_USERNAME} /add
     Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
     $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
     (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
