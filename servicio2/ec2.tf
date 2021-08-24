@@ -53,6 +53,7 @@ resource "aws_instance" "srv" {
     net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
     net localgroup administrators ${var.INSTANCE_USERNAME} /add
     cd C:\Users\${var.INSTANCE_USERNAME}
+    Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     Invoke-WebRequest -Uri https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1 -OutFile ConfigureRemotingForAnsible.ps1
     .\ConfigureRemotingForAnsible.ps1
