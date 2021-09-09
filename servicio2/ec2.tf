@@ -40,7 +40,7 @@ locals {
 }
 
 data "aws_iam_role" "s3-access-role" {
-  name = "AmazonSSMRoleForInstancesQuickSetup"
+  name = "IAM-ROL-IAC-EC2-S3"
 }
 resource "aws_iam_instance_profile" "ec2-access-profile" {
   name = "ec2_access_profile"
