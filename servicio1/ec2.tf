@@ -29,6 +29,14 @@ locals {
   instances_count = 1
 }
 
+data "aws_iam_role" "s3-access-role" {
+ name = "AmazonSSMRoleForInstancesQuickSetup"
+}
+resource "aws_iam_instance_profile" "ec2-access-profile" {
+  name = "ec2_access_profile"
+  role = data.aws_iam_role.s3-access-role.name
+}
+
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   ami                         = var.ec2_ami
@@ -68,12 +76,6 @@ resource "awx_host" "axwnode" {
 }
 
 
-data "aws_iam_role" "s3-access-role" {
- name = "AmazonSSMRoleForInstancesQuickSetup"
-}
-resource "aws_iam_instance_profile" "ec2-access-profile" {
-  name = "ec2_access_profile"
-  role = data.aws_iam_role.s3-access-role.name
-}
+
 #role para S3 AmazonSSMRoleForInstancesQuickSetup
 
