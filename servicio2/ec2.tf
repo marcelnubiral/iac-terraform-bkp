@@ -54,16 +54,16 @@ data "aws_iam_instance_profile" "ec2-s3-access" {
 
 
 resource "aws_instance" "srv" {
-  count             = local.instances_count
-  ami               = var.ec2_ami
-  key_name          = var.ec2_key_name
+  count                       = local.instances_count
+  ami                         = var.ec2_ami
+  key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.ec2-s3-access.name
-  vpc_security_group_ids = var.ec2_security_groups
+  vpc_security_group_ids      = var.ec2_security_groups
   associate_public_ip_address = true
-  source_dest_check  = false
-  instance_type      = var.ec2_instance_type
-  subnet_id          = var.ec2_subnet_id
-  user_data     = <<EOF
+  source_dest_check           = false
+  instance_type               = var.ec2_instance_type
+  subnet_id                   = var.ec2_subnet_id
+  user_data                   = <<EOF
     <powershell>
     net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
     net localgroup administrators ${var.INSTANCE_USERNAME} /add
@@ -91,7 +91,6 @@ resource "aws_instance" "srv" {
   }
 }
 
-
 resource "awx_host" "axwnode" {
   count = local.instances_count
   name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
@@ -111,4 +110,3 @@ resource "aws_iam_instance_profile" "ec2-access-profile" {
   name = "ec2_access_profile"
   role = data.aws_iam_role.s3-access-role.name
 }
-role para S3 AmazonSSMRoleForInstancesQuickSetup
