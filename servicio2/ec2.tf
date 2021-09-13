@@ -39,19 +39,15 @@ locals {
   instances_count = 1
 }
 
-data "aws_iam_role" "s3-access-role" {
-  name = "AmazonSSMRoleForInstancesQuickSetup"
-}
-resource "aws_iam_instance_profile" "ec2-access-profile" {
-  name = "ec2_access_profile"
-  role = data.aws_iam_role.s3-access-role.name
+data "aws_iam_instance_profile" "s3-access-role" {
+ name = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   ami                         = var.ec2_ami
   key_name                    = var.ec2_key_name
-  iam_instance_profile        = aws_iam_instance_profile.ec2-access-profile.name
+  iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
   associate_public_ip_address = true
   source_dest_check           = false
