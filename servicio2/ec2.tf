@@ -103,11 +103,4 @@ resource "awx_host" "axwnode" {
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
 
-data "aws_iam_role" "s3-access-role" {
-  name = "AmazonSSMRoleForInstancesQuickSetup"
-}
-resource "aws_iam_instance_profile" "ec2-access-profile" {
-  name = "ec2_access_profile"
-  role = data.aws_iam_role.s3-access-role.name
-}
 #
