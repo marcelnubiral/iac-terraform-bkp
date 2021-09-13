@@ -38,15 +38,6 @@ resource "aws_iam_instance_profile" "ec2-access-profile" {
   role = data.aws_iam_role.s3-access-role.name
 }
 
-resource "aws_iam_instance_profile" "ec2-s3-access" {
-  name = "ec2-s3-access"
-  role = data.aws_iam_role.s3-access-role.name
-}
-
-# data "aws_iam_instance_profile" "ec2-s3-access" {
-#   name = "ec2_access_profile"
-# }
-
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   ami                         = var.ec2_ami
@@ -84,5 +75,3 @@ resource "awx_host" "axwnode" {
   enabled      = true
   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
-
-#
