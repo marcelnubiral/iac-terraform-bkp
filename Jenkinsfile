@@ -92,6 +92,8 @@ def echo_all(list, bn) {
                     }
                     //time
                      stage ("wait_prior_starting_smoke_testing") {
+                    echo 'Waiting 2 minutes for deployment to complete prior starting smoke testing'
+                    
                     } 
                      stage('Hardening') {
                         build job: 'IAC-HARDENING-AWS', parameters: [
