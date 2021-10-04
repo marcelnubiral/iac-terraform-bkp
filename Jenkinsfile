@@ -90,6 +90,8 @@ def echo_all(list, bn) {
                         sh "terraform apply -no-color -input=false myplan"
                         }
                     }
+                    //time
+                     stage ("wait_prior_starting_smoke_testing") {
                     } 
                      stage('Hardening') {
                         build job: 'IAC-HARDENING-AWS', parameters: [
