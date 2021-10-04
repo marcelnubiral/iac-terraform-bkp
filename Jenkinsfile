@@ -90,10 +90,6 @@ def echo_all(list, bn) {
                         sh "terraform apply -no-color -input=false myplan"
                         }
                     }
-                    //time
-                     stage ("wait_prior_starting_smoke_testing") {
-                    echo 'Waiting 2 minutes for deployment to complete prior starting smoke testing'
-                    sleep 120 // seconds
                     } 
                      stage('Hardening') {
                         build job: 'IAC-HARDENING-AWS', parameters: [
