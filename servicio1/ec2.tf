@@ -33,9 +33,30 @@ data "aws_iam_instance_profile" "s3-access-role" {
  name = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
+data "aws_ami" "oracle"{
+  owners = ["679593333241"]
+  most_recent = true
+  filter {
+    name = "name"
+    values = ["CIS Oracle Linux 8 Benchmark v* - Level 1-*"]  
+   }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+}
+
 resource "aws_instance" "srv" {
   count                       = local.instances_count
-  ami                         = var.ec2_ami
+  ami                         = "${data.aws_ami.oracle.id}"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups

@@ -1,7 +1,7 @@
 provider "aws" {
   region = "us-east-1"
   assume_role {
-    role_arn    = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_role_name}"
+    role_arn  = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_role_name}"
   }  
 }
 
@@ -32,7 +32,6 @@ resource "awx_inventory_group" "default" {
     ansible_winrm_server_cert_validation: 'ignore'
     ansible_winrm_transport: 'basic'
     ansible_winrm_scheme: 'https'
-    retries: 2
 YAML
 }
 
@@ -44,9 +43,31 @@ data "aws_iam_instance_profile" "s3-access-role" {
  name = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
+data "aws_ami" "windows"{
+  owners = ["679593333241"]
+  most_recent = true
+  filter {
+    name = "name"
+    values = ["CIS Microsoft Windows Server 2019 Benchmark v* - Level 1-*"]
+   }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+}
+
+
 resource "aws_instance" "srv" {
   count                       = local.instances_count
-  ami                         = var.ec2_ami
+  ami                         = "${data.aws_ami.windows.id}"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -92,4 +113,4 @@ resource "awx_host" "axwnode" {
   ]
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}
+}                                                                                
