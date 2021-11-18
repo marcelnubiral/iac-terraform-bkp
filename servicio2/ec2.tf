@@ -16,7 +16,6 @@ data "awx_organization" "default" {
   name = var.awx_organization_name
 }
 
-
 data "awx_inventory" "default" {
   name = var.awx_inventory_name
 }
@@ -63,7 +62,6 @@ data "aws_ami" "windows"{
     values = ["ebs"]
   }
 }
-
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
@@ -114,5 +112,3 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }      
-
-##
