@@ -65,8 +65,7 @@ data "aws_ami" "windows"{
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
-  #ami                         = "${data.aws_ami.windows.id}"
-  ami                         = var.ec2_ami
+  ami                         = "${data.aws_ami.windows.id}"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -113,4 +112,4 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
-##
+#
