@@ -7,6 +7,7 @@ variable awx_inventory_name {}
 variable awx_inventory_group_name {}
 variable awx_organization_name{}
 
+variable ec2_ami {}
 variable aws_region {}
 variable aws_account_id {}
 variable aws_role_name {}
