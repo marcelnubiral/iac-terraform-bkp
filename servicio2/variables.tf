@@ -14,7 +14,6 @@ variable aws_account_id {}
 variable aws_role_name {}
 
 
-variable ec2_ami {}
 variable ec2_instance_type {}
 variable ec2_subnet_id {}
 variable ec2_key_name {}
