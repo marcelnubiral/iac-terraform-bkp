@@ -26,7 +26,7 @@ resource "awx_inventory_group" "default" {
     variables       = <<YAML
     ---
     ansible_user: '${var.INSTANCE_USERNAME}'
-    ansible_password: 'QChqTV4d3cbsG~~::E66#N'
+    ansible_password: '${var.INSTANCE_PASSWORD}'
     ansible_connection: 'winrm'
     ansible_winrm_server_cert_validation: 'ignore'
     ansible_winrm_transport: 'basic'
@@ -112,4 +112,4 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
-
+##
