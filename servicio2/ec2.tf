@@ -25,6 +25,8 @@ resource "awx_inventory_group" "default" {
     inventory_id    = data.awx_inventory.default.id
     variables       = <<YAML
     ---
+    ansible_user: '${var.INSTANCE_USERNAME}'
+    ansible_password: 'QChqTV4d3cbsG~~::E66#N'
     ansible_connection: 'winrm'
     ansible_winrm_server_cert_validation: 'ignore'
     ansible_winrm_transport: 'basic'
@@ -64,7 +66,6 @@ data "aws_ami" "windows"{
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   ami                         = "${data.aws_ami.windows.id}"
-  #ami                         = var.ec2_ami
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -112,6 +113,3 @@ resource "awx_host" "axwnode" {
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
 
-
-#ansible_user: 'ansible'
-#ansible_password: 'QChqTV4d3cbsG~~::E66#N'
