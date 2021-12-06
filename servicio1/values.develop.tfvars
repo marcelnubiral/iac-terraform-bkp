@@ -11,7 +11,7 @@ aws_region     = "us-east-1"
 aws_account_id = "884913712919"
 aws_role_name  = "IAM-ROL-IAC-JNK"
 #
-ec2_instance_type = "t3.micro"
+ec2_instance_type = "t3.small"
 ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
 ec2_key_name = "key_arcos_sandbox"
 ec2_security_groups = ["sg-07a89f708579b7195"]
