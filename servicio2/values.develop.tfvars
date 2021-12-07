@@ -6,14 +6,13 @@ awx_user = "jenkins2" #usuario jenkins en AWX
 awx_pass = "jenkins2" #password jenkins en AWX
 awx_host = "https://172.21.1.149:8043" 
 awx_insecure = "true"
-#
+
 aws_region     = "us-east-1"
 aws_account_id = "884913712919"
 aws_role_name  = "IAM-ROL-IAC-JNK"
-#
+
 INSTANCE_USERNAME = "ansible"
 INSTANCE_PASSWORD = "QChqTV4d3cbsG~~::E66#N"
-ec2_ami = "ami-0da8e1012c9d84c40"
 ec2_instance_type = "t3.small"
 ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
 ec2_key_name = "key_arcos_sandbox"
