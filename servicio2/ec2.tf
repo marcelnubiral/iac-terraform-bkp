@@ -66,7 +66,7 @@ data "aws_ami" "windows"{
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   #ami                         = "${data.aws_ami.windows.id}"
-  ami                         = "ami-02c9d6087ad330767"
+  ami                         = "ami-02c2caecbf2865f61"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -74,12 +74,12 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
-  user_data                   = <<EOF
-    <powershell>
-    net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
-    net localgroup administrators ${var.INSTANCE_USERNAME} /add
-    </powershell>
-    EOF
+  # user_data                   = <<EOF
+  #   <powershell>
+  #   net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
+  #   net localgroup administrators ${var.INSTANCE_USERNAME} /add
+  #   </powershell>
+  #   EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
