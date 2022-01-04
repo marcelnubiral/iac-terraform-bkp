@@ -100,7 +100,7 @@ resource "aws_instance" "srv" {
     shutdownschedule          = "8a20"
     productowneremail         = "Gonzalo.Aresrivas@ar.mcd.com"
   }
-}
+}#
 
 # resource "awx_host" "axwnode" {
 #   count = local.instances_count
