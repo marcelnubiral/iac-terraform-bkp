@@ -5,34 +5,34 @@ provider "aws" {
   }  
 }
 
-provider "awx" {
-  hostname = var.awx_host
-  insecure = var.awx_insecure
-  username = var.awx_user
-  password = var.awx_pass
-}
+# provider "awx" {
+#   hostname = var.awx_host
+#   insecure = var.awx_insecure
+#   username = var.awx_user
+#   password = var.awx_pass
+# }
 
-data "awx_organization" "default" {
-  name = var.awx_organization_name
-}
+# data "awx_organization" "default" {
+#   name = var.awx_organization_name
+# }
 
-data "awx_inventory" "default" {
-  name = var.awx_inventory_name
-}
+# data "awx_inventory" "default" {
+#   name = var.awx_inventory_name
+# }
 
-resource "awx_inventory_group" "default" {
-    name            = var.awx_inventory_group_name
-    inventory_id    = data.awx_inventory.default.id
-    variables       = <<YAML
-    ---
-    ansible_user: '${var.INSTANCE_USERNAME}'
-    ansible_password: '${var.INSTANCE_PASSWORD}'
-    ansible_connection: 'winrm'
-    ansible_winrm_server_cert_validation: 'ignore'
-    ansible_winrm_transport: 'basic'
-    ansible_winrm_scheme: 'https'
-YAML
-}
+# resource "awx_inventory_group" "default" {
+#     name            = var.awx_inventory_group_name
+#     inventory_id    = data.awx_inventory.default.id
+#     variables       = <<YAML
+#     ---
+#     ansible_user: '${var.INSTANCE_USERNAME}'
+#     ansible_password: '${var.INSTANCE_PASSWORD}'
+#     ansible_connection: 'winrm'
+#     ansible_winrm_server_cert_validation: 'ignore'
+#     ansible_winrm_transport: 'basic'
+#     ansible_winrm_scheme: 'https'
+# YAML
+# }
 
 locals {
   instances_count = 1
@@ -65,7 +65,8 @@ data "aws_ami" "windows"{
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
-  ami                         = "${data.aws_ami.windows.id}"
+  #ami                         = "${data.aws_ami.windows.id}"
+  ami                         = "ami-02c9d6087ad330767"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -73,18 +74,18 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
-  user_data                   = <<EOF
-    <powershell>
-    net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
-    net localgroup administrators ${var.INSTANCE_USERNAME} /add
-    Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-    $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
-    (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-    powershell.exe -ExecutionPolicy ByPass -File $file -forcenewsslcert
-    </powershell>
-    EOF
+  # user_data                   = <<EOF
+  #   <powershell>
+  #   net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
+  #   net localgroup administrators ${var.INSTANCE_USERNAME} /add
+  #   Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
+  #   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+  #   $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+  #   $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+  #   (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+  #   powershell.exe -ExecutionPolicy ByPass -File $file -forcenewsslcert
+  #   </powershell>
+  #   EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
@@ -101,14 +102,26 @@ resource "aws_instance" "srv" {
   }
 }
 
-resource "awx_host" "axwnode" {
-  count = local.instances_count
-  name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
-  description  = "Nodo agregado desde terraform"
-  inventory_id = data.awx_inventory.default.id
-  group_ids = [ 
-    awx_inventory_group.default.id
-  ]
-  enabled   = true
-  variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}#
+# resource "awx_host" "axwnode" {
+#   count = local.instances_count
+#   name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+#   description  = "Nodo agregado desde terraform"
+#   inventory_id = data.awx_inventory.default.id
+#   group_ids = [ 
+#     awx_inventory_group.default.id
+#   ]
+#   enabled   = true
+#   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+# }
+
+
+
+
+# {   
+#       	    "type": "ansible",
+#             "command": "/usr/local/bin/ansible-playbook",
+#             "playbook_file": "windows/windows.yml",
+# 	    "user": "Administrator",
+# 	    "use_proxy": false,
+# 	    "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore"]
+#     	} 
