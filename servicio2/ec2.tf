@@ -74,18 +74,12 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
-  # user_data                   = <<EOF
-  #   <powershell>
-  #   net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
-  #   net localgroup administrators ${var.INSTANCE_USERNAME} /add
-  #   Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
-  #   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-  #   $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-  #   $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
-  #   (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-  #   powershell.exe -ExecutionPolicy ByPass -File $file -forcenewsslcert
-  #   </powershell>
-  #   EOF
+  user_data                   = <<EOF
+    <powershell>
+    net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
+    net localgroup administrators ${var.INSTANCE_USERNAME} /add
+    </powershell>
+    EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
@@ -125,3 +119,14 @@ resource "aws_instance" "srv" {
 # 	    "use_proxy": false,
 # 	    "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore"]
 #     	} 
+
+
+
+
+
+# Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
+#     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+#     $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
+#     $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
+#     (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
+#     powershell.exe -ExecutionPolicy ByPass -File $file -forcenewsslcert
