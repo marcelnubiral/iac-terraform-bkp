@@ -66,7 +66,7 @@ data "aws_iam_instance_profile" "s3-access-role" {
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   #ami                         = "${data.aws_ami.windows.id}"
-  ami                         = "ami-0a75cbcc3b11123de"
+  ami                         = "ami-06a2c655727fd9add"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
