@@ -7,7 +7,6 @@ variable awx_inventory_name {}
 variable awx_inventory_group_name {}
 variable awx_organization_name{}
 
-variable ec2_ami {}
 variable aws_region {}
 variable aws_account_id {}
 variable aws_role_name {}
@@ -24,12 +23,6 @@ variable ec2_instance_count {}
 variable ec2_root_volume_size {}
 variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
-variable INSTANCE_USERNAME{
-  sensitive = true
-}
-variable INSTANCE_PASSWORD{
-  sensitive = true
-}
 
 # TAGS
 variable aws_so {}
