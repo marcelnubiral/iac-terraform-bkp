@@ -42,31 +42,31 @@ data "aws_iam_instance_profile" "s3-access-role" {
  name = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
-data "aws_ami" "windows"{
-  owners = ["679593333241"]
-  most_recent = true
-  filter {
-    name = "name"
-    values = ["CIS Microsoft Windows Server 2019 Benchmark v* - Level 1-*"]
-   }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-}
+# data "aws_ami" "windows"{
+#   owners = ["679593333241"]
+#   most_recent = true
+#   filter {
+#     name = "name"
+#     values = ["CIS Microsoft Windows Server 2019 Benchmark v* - Level 1-*"]
+#    }
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+#   filter {
+#     name   = "architecture"
+#     values = ["x86_64"]
+#   }
+#   filter {
+#     name   = "root-device-type"
+#     values = ["ebs"]
+#   }
+# }
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   #ami                         = "${data.aws_ami.windows.id}"
-  ami                         = "ami-02c2caecbf2865f61"
+  ami                         = "ami-055dcb6dd3471807f"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -74,12 +74,12 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
-  # user_data                   = <<EOF
-  #   <powershell>
-  #   net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
-  #   net localgroup administrators ${var.INSTANCE_USERNAME} /add
-  #   </powershell>
-  #   EOF
+  user_data                   = <<EOF
+    <powershell>
+    net user ${var.INSTANCE_USERNAME} '${var.INSTANCE_PASSWORD}' /add /y
+    net localgroup administrators ${var.INSTANCE_USERNAME} /add
+    </powershell>
+  EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
@@ -94,7 +94,7 @@ resource "aws_instance" "srv" {
     shutdownschedule          = "8a20"
     productowneremail         = "Gonzalo.Aresrivas@ar.mcd.com"
   }
-}#
+}
 
 # resource "awx_host" "axwnode" {
 #   count = local.instances_count
@@ -111,22 +111,9 @@ resource "aws_instance" "srv" {
 
 
 
-# {   
-#       	    "type": "ansible",
-#             "command": "/usr/local/bin/ansible-playbook",
-#             "playbook_file": "windows/windows.yml",
-# 	    "user": "Administrator",
-# 	    "use_proxy": false,
-# 	    "extra_arguments": ["-e", "ansible_winrm_server_cert_validation=ignore"]
-#     	} 
 
 
 
 
 
-# Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service" -Name AllowBasic -Value 1
-#     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-#     $url = "https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1"
-#     $file = "$env:temp\ConfigureRemotingForAnsible.ps1"
-#     (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
-#     powershell.exe -ExecutionPolicy ByPass -File $file -forcenewsslcert
+
