@@ -92,3 +92,5 @@ resource "aws_instance" "srv" {
 #   enabled      = true
 #   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 # }
+
+####
