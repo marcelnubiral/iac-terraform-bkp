@@ -21,6 +21,8 @@ ec2_instance_count = 2
 ec2_root_volume_size = 30
 ec2_root_volume_type = "gp2"
 ec2_root_kms_id = "e69c23d6-8e7d-4629-a3b1-1103cb5e8b4f"
+INSTANCE_USERNAME = "ansible"
+INSTANCE_PASSWORD = "QChqTV4d3cbsG~~::E66#N"
 
 #TAGS
 aws_so  = "WIN"
