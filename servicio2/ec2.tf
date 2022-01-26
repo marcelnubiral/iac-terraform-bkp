@@ -42,31 +42,31 @@ data "aws_iam_instance_profile" "s3-access-role" {
  name = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
-# data "aws_ami" "windows"{
-#   owners = ["679593333241"]
-#   most_recent = true
-#   filter {
-#     name = "name"
-#     values = ["CIS Microsoft Windows Server 2019 Benchmark v* - Level 1-*"]
-#    }
-#   filter {
-#     name   = "virtualization-type"
-#     values = ["hvm"]
-#   }
-#   filter {
-#     name   = "architecture"
-#     values = ["x86_64"]
-#   }
-#   filter {
-#     name   = "root-device-type"
-#     values = ["ebs"]
-#   }
-# }
+data "aws_ami" "windows"{
+  owners = ["884913712919"]
+  most_recent = true
+  filter {
+    name = "name"
+    values = ["Arcos-Oracle-AMI-*"]
+   }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+}
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
-  #ami                         = "${data.aws_ami.windows.id}"
-  ami                         = "ami-03c3881e6dcae1993"
+  ami                         = "${data.aws_ami.windows.id}"
+  #ami                         = "ami-03c3881e6dcae1993"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
@@ -100,7 +100,7 @@ resource "awx_host" "axwnode" {
   ]
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}#
+}
 
 
 
