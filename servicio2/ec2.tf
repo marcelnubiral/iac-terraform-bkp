@@ -47,7 +47,7 @@ data "aws_ami" "windows"{
   most_recent = true
   filter {
     name = "name"
-    values = ["Arcos-Win-AMI-"]
+    values = ["Arcos-Win-AMI-*"]
    }
   filter {
     name   = "virtualization-type"
