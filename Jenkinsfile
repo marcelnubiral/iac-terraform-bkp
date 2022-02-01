@@ -65,16 +65,16 @@ def echo_all(list, bn) {
                           }
                     }
                 
-                    stage('Terraform Destroy') {
-                        if (params.REQUESTED_ACTION == 'destroy') {
-                            sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
-                        }
-                    }
-                    stage('Terraform Plan'){
-                        if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
-                        }
-                    }
+                    // stage('Terraform Destroy') {
+                    //     if (params.REQUESTED_ACTION == 'destroy') {
+                    //         sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
+                    //     }
+                    // }
+                    // stage('Terraform Plan'){
+                    //     if (params.REQUESTED_ACTION != 'destroy') {
+                    //     sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
+                    //     }
+                    // }
                 
                     // SOLO PARA EL PIPELINE DE PRODUCCION //////////
                     stage('Terraform Approval') {
@@ -85,11 +85,11 @@ def echo_all(list, bn) {
                         }
                     }
                 // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    stage('Terraform Apply'){
-                        if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform apply -no-color -input=false myplan"
-                        }
-                    }
+                    // stage('Terraform Apply'){
+                    //     if (params.REQUESTED_ACTION != 'destroy') {
+                    //     sh "terraform apply -no-color -input=false myplan"
+                    //     }
+                    // }
                     //time
                     // stage ("wait_prior_starting_smoke_testing") {
                     // echo 'Waiting 1 minute for deployment to complete prior starting smoke testing'
