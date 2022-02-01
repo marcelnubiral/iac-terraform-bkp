@@ -43,11 +43,11 @@ data "aws_iam_instance_profile" "s3-access-role" {
 }
 
 data "aws_ami" "windows"{
-  owners = ["679593333241"]
+  owners = ["884913712919"]
   most_recent = true
   filter {
     name = "name"
-    values = ["CIS Microsoft Windows Server 2019 Benchmark v* - Level 1-*"]
+    values = ["Arcos-Win-AMI-"]
    }
   filter {
     name   = "virtualization-type"
