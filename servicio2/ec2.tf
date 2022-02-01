@@ -5,34 +5,34 @@ provider "aws" {
   }  
 }
 
-# provider "awx" {
-#   hostname = var.awx_host
-#   insecure = var.awx_insecure
-#   username = var.awx_user
-#   password = var.awx_pass
-# }
+provider "awx" {
+  hostname = var.awx_host
+  insecure = var.awx_insecure
+  username = var.awx_user
+  password = var.awx_pass
+}
 
-# data "awx_organization" "default" {
-#   name = var.awx_organization_name
-# }
+data "awx_organization" "default" {
+  name = var.awx_organization_name
+}
 
-# data "awx_inventory" "default" {
-#   name = var.awx_inventory_name
-# }
+data "awx_inventory" "default" {
+  name = var.awx_inventory_name
+}
 
-# resource "awx_inventory_group" "default" {
-#     name            = var.awx_inventory_group_name
-#     inventory_id    = data.awx_inventory.default.id
-#     variables       = <<YAML
-#     ---
-#     ansible_user: '${var.INSTANCE_USERNAME}'
-#     ansible_password: '${var.INSTANCE_PASSWORD}'
-#     ansible_connection: 'winrm'
-#     ansible_winrm_server_cert_validation: 'ignore'
-#     ansible_winrm_transport: 'basic'
-#     ansible_winrm_scheme: 'https'
-# YAML
-# }
+resource "awx_inventory_group" "default" {
+    name            = var.awx_inventory_group_name
+    inventory_id    = data.awx_inventory.default.id
+    variables       = <<YAML
+    ---
+    ansible_user: '${var.INSTANCE_USERNAME}'
+    ansible_password: '${var.INSTANCE_PASSWORD}'
+    ansible_connection: 'winrm'
+    ansible_winrm_server_cert_validation: 'ignore'
+    ansible_winrm_transport: 'basic'
+    ansible_winrm_scheme: 'https'
+YAML
+}
 
 locals {
   instances_count = 1
@@ -63,6 +63,27 @@ data "aws_iam_instance_profile" "s3-access-role" {
 #   }
 # }
 
+data "aws_ami" "windows"{
+  owners = ["679593333241"]
+  most_recent = true
+  filter {
+    name = "name"
+    values = ["CIS Microsoft Windows Server 2019 Benchmark v* - Level 1-*"]
+   }
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+}
+
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   #ami                         = "${data.aws_ami.windows.id}"
@@ -90,17 +111,17 @@ resource "aws_instance" "srv" {
   }
 }
 
-# resource "awx_host" "axwnode" {
-#   count = local.instances_count
-#   name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
-#   description  = "Nodo agregado desde terraform"
-#   inventory_id = data.awx_inventory.default.id
-#   group_ids = [ 
-#     awx_inventory_group.default.id
-#   ]
-#   enabled   = true
-#   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-# }
+resource "awx_host" "axwnode" {
+  count = local.instances_count
+  name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+  description  = "Nodo agregado desde terraform"
+  inventory_id = data.awx_inventory.default.id
+  group_ids = [ 
+    awx_inventory_group.default.id
+  ]
+  enabled   = true
+  variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+}
 
 
 
