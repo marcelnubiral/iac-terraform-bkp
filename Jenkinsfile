@@ -65,11 +65,11 @@ def echo_all(list, bn) {
                           }
                     }
                 
-                    // stage('Terraform Destroy') {
-                    //     if (params.REQUESTED_ACTION == 'destroy') {
-                    //         sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
-                    //     }
-                    // }
+                    stage('Terraform Destroy') {
+                        if (params.REQUESTED_ACTION == 'destroy') {
+                            sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
+                        }
+                    }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
                         sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
