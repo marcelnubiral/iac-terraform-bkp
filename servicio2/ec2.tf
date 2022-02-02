@@ -42,31 +42,31 @@ data "aws_iam_instance_profile" "s3-access-role" {
  name = "AmazonSSMRoleForInstancesQuickSetup"
 }
 
-data "aws_ami" "windows"{
-  owners = ["884913712919"]
-  most_recent = true
-  filter {
-    name = "name"
-    values = ["Arcos-Win-AMI-*"]
-   }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-}
+# data "aws_ami" "windows"{
+#   owners = ["884913712919"]
+#   most_recent = true
+#   filter {
+#     name = "name"
+#     values = ["Arcos-Win-AMI-*"]
+#    }
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
+#   filter {
+#     name   = "architecture"
+#     values = ["x86_64"]
+#   }
+#   filter {
+#     name   = "root-device-type"
+#     values = ["ebs"]
+#   }
+# }
 
 resource "aws_instance" "srv" {
   count                       = local.instances_count
-  ami                         = "${data.aws_ami.windows.id}"
-  #ami                         = "ami-0f540030bb04d884a"
+  #ami                         = "${data.aws_ami.windows.id}"
+  ami                         = "ami-03b4a75fa231f4f74"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
