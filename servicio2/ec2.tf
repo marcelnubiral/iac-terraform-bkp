@@ -35,7 +35,7 @@ YAML
 }
 
 locals {
-  instances_count = 2
+  instances_count = 1
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -66,7 +66,6 @@ data "aws_ami" "windows"{
 resource "aws_instance" "srv" {
   count                       = local.instances_count
   ami                         = "${data.aws_ami.windows.id}"
-  #ami                         = "ami-03b4a75fa231f4f74"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = var.ec2_security_groups
