@@ -97,7 +97,7 @@ def echo_all(list, bn) {
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform plan -var 'awx_user="+awx_user+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
+                        sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
                         }
                     }
                 
