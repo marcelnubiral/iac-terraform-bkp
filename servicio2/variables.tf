@@ -23,6 +23,7 @@ variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
 
 
+
 # TAGS
 variable aws_so {}
 variable aws_n {}
