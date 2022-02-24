@@ -43,17 +43,21 @@ node {
         echo_all(forlders, bran)
     }
 
-     stage('get parameter store values'){
+    stage('get parameter store values'){
         awx_user = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
         ).trim()
+
         echo "usuario para conectar a awx: ${awx_user}"
+
         awx_pwd = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
+
         echo "password para conectar a awx: ${awx_pwd}"
+        
         ansible_win_user = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
@@ -64,7 +68,7 @@ node {
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
-     } 
+    } 
 
     
 } //END NODE
