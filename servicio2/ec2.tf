@@ -25,8 +25,8 @@ resource "awx_inventory_group" "default" {
     inventory_id    = data.awx_inventory.default.id
     variables       = <<YAML
     ---
-    ansible_user: 'ansible'
-    ansible_password: 'QChqTV4d3cbsG~~::E66#N'
+    ansible_user: '${var.ansible_win_user}'
+    ansible_password: '${var.ansible_win_pwd}'
     ansible_connection: 'winrm'
     ansible_winrm_server_cert_validation: 'ignore'
     ansible_winrm_transport: 'basic'

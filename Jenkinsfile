@@ -26,14 +26,10 @@ node {
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
-        echo "usuario para conectar a awx: ${awx_user}"
-
         awx_pwd = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
-
-        echo "password para conectar a awx: ${awx_pwd}"
         
         ansible_win_user = sh(
             returnStdout: true, 
@@ -104,7 +100,7 @@ def echo_all(list, bn) {
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
+                        sh "terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
                         }
                     }
                 
