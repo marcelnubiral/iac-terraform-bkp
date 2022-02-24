@@ -7,9 +7,6 @@ def getGitBranchName() {
 node {
     properties([
     pipelineTriggers([pollSCM('* * * * *')])
-    // parameters([
-    //     password(name: 'KEY', description: 'Encryption key')
-    // ]) 
   ])    
     stage('AWS Credentials'){
         withCredentials([[
@@ -46,29 +43,12 @@ node {
 
     } 
 
-    parameters {
-        string(name: 'awx_user', defaultValue: "${awx_user}", description: 'Enter User ID')
-        password(name: 'awx_pwd', defaultValue: "${awx_pwd}")
-    }
-
-    script {
-        wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: "${awx_pwd}", var: 'PSWD']]]) {
-            sh '''echo PSWD con mask: ${awx_pwd}'''
-        }
-    }
-
-    stage('AWX Credentials')
-    withCredentials([usernamePassword(credentialsId: awxCredentials, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-        env.AWX_USER = USERNAME
-        env.AWX_PASS = PASSWORD 
-    }
-    
-     stage('checkout'){
-      echo 'Descargando codigo de SCM'
-      sh 'rm -rf *'
-      checkout scm
-      echo "Cloning files from branch =  ${getGitBranchName()}"
-     } 
+    stage('checkout'){
+        echo 'Descargando codigo de SCM'
+        sh 'rm -rf *'
+        checkout scm
+        echo "Cloning files from branch =  ${getGitBranchName()}"
+    } 
     stage ('Plugins Provider AWX'){
         sh 'rm -rf ~/.terraform.d/'
         sh 'chmod 777 terraform-provider-awx'
