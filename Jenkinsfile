@@ -42,6 +42,15 @@ node {
         forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$1}' | sort | uniq", returnStdout: true).trim().split('\n')
         echo_all(forlders, bran)
     }
+
+    stage('get parameter store values'){
+        jenkins_user = sh(
+            returnStdout: true, 
+            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
+        ).trim()
+
+        echo "usuario jenkins: ${jenkins_user}"
+    } 
 } //END NODE
 def echo_all(list, bn) {
     list.each { item ->
@@ -90,14 +99,7 @@ def echo_all(list, bn) {
                     //     sh "terraform apply -no-color -input=false myplan"
                     //     }
                     // }
-                    stage('get parameter store values'){
-                        jenkins_user = sh(
-                            returnStdout: true, 
-                            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
-                        ).trim()
-
-                        echo "usuario jenkins: ${jenkins_user}"
-                    } 
+                    
                     // //time
                     // stage ("wait_prior_starting_smoke_testing") {
                     // echo 'Waiting 1 minute for deployment to complete prior starting smoke testing'
