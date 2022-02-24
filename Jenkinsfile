@@ -53,7 +53,7 @@ node {
 
     script {
         wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: "${awx_pwd}", var: 'PSWD']]]) {
-            sh '''echo PSWD: ${passwd}'''
+            sh '''echo PSWD con mask: ${awx_pwd}'''
         }
     }
 
@@ -113,10 +113,8 @@ def echo_all(list, bn) {
                         }
                     }
                     stage('Terraform Plan'){
-                        if (params.REQUESTED_ACTION != 'destroy') {
-                        
+                        if (params.REQUESTED_ACTION != 'destroy') { 
                         sh "terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
-                        set +x
                         }
                     }
                 
