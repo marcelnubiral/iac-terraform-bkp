@@ -1,5 +1,5 @@
 variable awx_user {}
-variable awx_pass {}
+variable awx_pwd {}
 variable awx_host {}
 variable awx_insecure {}
 variable awx_template_id {}
