@@ -65,45 +65,53 @@ def echo_all(list, bn) {
                           }
                     }
                 
-                    stage('Terraform Destroy') {
-                        if (params.REQUESTED_ACTION == 'destroy') {
-                            sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
-                        }
-                    }
-                    stage('Terraform Plan'){
-                        if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
-                        }
-                    }
+                    // stage('Terraform Destroy') {
+                    //     if (params.REQUESTED_ACTION == 'destroy') {
+                    //         sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
+                    //     }
+                    // }
+                    // stage('Terraform Plan'){
+                    //     if (params.REQUESTED_ACTION != 'destroy') {
+                    //     sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
+                    //     }
+                    // }
                 
                     // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    stage('Terraform Approval') {
-                        if (getGitBranchName() == 'master') {
-                            script {
-                                def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-                            }
-                        }
-                    }
+                    // stage('Terraform Approval') {
+                    //     if (getGitBranchName() == 'master') {
+                    //         script {
+                    //             def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+                    //         }
+                    //     }
+                    // }
                 // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    stage('Terraform Apply'){
-                        if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform apply -no-color -input=false myplan"
-                        }
-                    }
-                    //time
-                    stage ("wait_prior_starting_smoke_testing") {
-                    echo 'Waiting 1 minute for deployment to complete prior starting smoke testing'
-                    sleep 60 // seconds
+                    // stage('Terraform Apply'){
+                    //     if (params.REQUESTED_ACTION != 'destroy') {
+                    //     sh "terraform apply -no-color -input=false myplan"
+                    //     }
+                    // }
+                    stage('get parameter store values'){
+                        jenkins_user = sh(
+                            returnStdout: true, 
+                            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
+                        ).trim()
+
+                        echo "usuario jenkins: ${jenkins_user}"
                     } 
-                    stage('Hardening') {
-                        timeout(time: 2, unit: 'HOURS') {
-                            build job: 'IAC-HARDENING-AWS', parameters: [
-                            string(name: 'SERVICE', value: "${item}"),
-                            string(name: 'TEMPLATE_ID', value: "${template_id}"),
-                            string(name: 'BRANCH', value: "${getGitBranchName()}")
-                            ]
-                        }
-                    } 
+                    // //time
+                    // stage ("wait_prior_starting_smoke_testing") {
+                    // echo 'Waiting 1 minute for deployment to complete prior starting smoke testing'
+                    // sleep 60 // seconds
+                    // } 
+                    // stage('Hardening') {
+                    //     timeout(time: 2, unit: 'HOURS') {
+                    //         build job: 'IAC-HARDENING-AWS', parameters: [
+                    //         string(name: 'SERVICE', value: "${item}"),
+                    //         string(name: 'TEMPLATE_ID', value: "${template_id}"),
+                    //         string(name: 'BRANCH', value: "${getGitBranchName()}")
+                    //         ]
+                    //     }
+                    // } 
                 }
      }  else {
             echo "Dir not found"
