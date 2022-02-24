@@ -8,8 +8,8 @@ provider "aws" {
 provider "awx" {
   hostname = var.awx_host
   insecure = var.awx_insecure
-  username = "jenkins2"
-  password = "zh/rM/X64a@E{7!"
+  username = var.awx_user
+  password = var.awx_pwd
 }
 
 data "awx_organization" "default" {
