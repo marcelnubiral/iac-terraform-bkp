@@ -43,36 +43,36 @@ node {
         echo_all(forlders, bran)
     }
 
-    stage('get parameter store values'){
-        jenkins_user = sh(
-            returnStdout: true, 
-            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
-        ).trim()
+    // stage('get parameter store values'){
+    //     jenkins_user = sh(
+    //         returnStdout: true, 
+    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
+    //     ).trim()
 
-        echo "usuario jenkins: ${jenkins_user}"
+    //     echo "usuario jenkins: ${jenkins_user}"
 
+    //     jenkins_pwd = sh(
+    //         returnStdout: true, 
+    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
+    //     ).trim()
 
-        jenkins_pwd = sh(
-            returnStdout: true, 
-            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
-        ).trim()
+    //     echo "pwd jenkins: ${jenkins_pwd}"
 
-        echo "pwd jenkins: ${jenkins_pwd}"
+    //     ansible_win_user = sh(
+    //         returnStdout: true, 
+    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
+    //     ).trim()
 
-        ansible_win_user = sh(
-            returnStdout: true, 
-            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
-        ).trim()
+    //     echo "usuario ansible: ${ansible_win_user}"
+    //     ansible_win_pwd = sh(
+    //         returnStdout: true, 
+    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
+    //     ).trim()
 
-        echo "usuario ansible: ${ansible_win_user}"
-        ansible_win_pwd = sh(
-            returnStdout: true, 
-            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
-        ).trim()
+    //     echo "pwd ansible: ${ansible_win_pwd}"
+    // } 
 
-        echo "pwd ansible: ${ansible_win_pwd}"
-
-    } 
+    
 } //END NODE
 def echo_all(list, bn) {
     list.each { item ->
@@ -96,46 +96,46 @@ def echo_all(list, bn) {
                           }
                     }
                 
-                    // stage('Terraform Destroy') {
-                    //     if (params.REQUESTED_ACTION == 'destroy') {
-                    //         sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
-                    //     }
-                    // }
-                    // stage('Terraform Plan'){
-                    //     if (params.REQUESTED_ACTION != 'destroy') {
-                    //     sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
-                    //     }
-                    // }
+                    stage('Terraform Destroy') {
+                        if (params.REQUESTED_ACTION == 'destroy') {
+                            sh "terraform destroy -var-file=values."+bn+".tfvars -no-color --auto-approve"
+                        }
+                    }
+                    stage('Terraform Plan'){
+                        if (params.REQUESTED_ACTION != 'destroy') {
+                        sh "terraform plan -var "jenkins_user='${jenkins_user}'" -var-file=values."+bn+".tfvars -no-color -out myplan"
+                        }
+                    }
                 
-                    // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    // stage('Terraform Approval') {
-                    //     if (getGitBranchName() == 'master') {
-                    //         script {
-                    //             def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-                    //         }
-                    //     }
-                    // }
+                    SOLO PARA EL PIPELINE DE PRODUCCION //////////
+                    stage('Terraform Approval') {
+                        if (getGitBranchName() == 'master') {
+                            script {
+                                def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+                            }
+                        }
+                    }
                 // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    // stage('Terraform Apply'){
-                    //     if (params.REQUESTED_ACTION != 'destroy') {
-                    //     sh "terraform apply -no-color -input=false myplan"
-                    //     }
-                    // }
+                    stage('Terraform Apply'){
+                        if (params.REQUESTED_ACTION != 'destroy') {
+                        sh "terraform apply -no-color -input=false myplan"
+                        }
+                    }
                     
-                    // //time
-                    // stage ("wait_prior_starting_smoke_testing") {
-                    // echo 'Waiting 1 minute for deployment to complete prior starting smoke testing'
-                    // sleep 60 // seconds
-                    // } 
-                    // stage('Hardening') {
-                    //     timeout(time: 2, unit: 'HOURS') {
-                    //         build job: 'IAC-HARDENING-AWS', parameters: [
-                    //         string(name: 'SERVICE', value: "${item}"),
-                    //         string(name: 'TEMPLATE_ID', value: "${template_id}"),
-                    //         string(name: 'BRANCH', value: "${getGitBranchName()}")
-                    //         ]
-                    //     }
-                    // } 
+                    //time
+                    stage ("wait_prior_starting_smoke_testing") {
+                    echo 'Waiting 1 minute for deployment to complete prior starting smoke testing'
+                    sleep 60 // seconds
+                    } 
+                    stage('Hardening') {
+                        timeout(time: 2, unit: 'HOURS') {
+                            build job: 'IAC-HARDENING-AWS', parameters: [
+                            string(name: 'SERVICE', value: "${item}"),
+                            string(name: 'TEMPLATE_ID', value: "${template_id}"),
+                            string(name: 'BRANCH', value: "${getGitBranchName()}")
+                            ]
+                        }
+                    } 
                 }
      }  else {
             echo "Dir not found"

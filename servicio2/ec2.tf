@@ -5,11 +5,19 @@ provider "aws" {
   }  
 }
 
+data "aws_ssm_parameter" "awx_user" {
+  name = "/nubiral/sandbox/packer-build/jenkins-user"
+}
+
+data "aws_ssm_parameter" "awx_pwd" {
+  name = "/nubiral/sandbox/packer-build/jenkins-pwd"
+}
+
 provider "awx" {
   hostname = var.awx_host
   insecure = var.awx_insecure
-  username = var.awx_user
-  password = var.awx_pass
+  username = data.awx_user.value
+  password = data.awx_pwd.value
 }
 
 data "awx_organization" "default" {
@@ -20,13 +28,21 @@ data "awx_inventory" "default" {
   name = var.awx_inventory_name
 }
 
+data "aws_ssm_parameter" "instance_username" {
+  name = "/nubiral/sandbox/packer-build/ansible_win_user"
+}
+
+data "aws_ssm_parameter" "instance_password" {
+  name = "/nubiral/sandbox/packer-build/ansible_win_pwd"
+}
+
 resource "awx_inventory_group" "default" {
     name            = var.awx_inventory_group_name
     inventory_id    = data.awx_inventory.default.id
     variables       = <<YAML
     ---
-    ansible_user: '${var.INSTANCE_USERNAME}'
-    ansible_password: '${var.INSTANCE_PASSWORD}'
+    ansible_user: '${data.instance_username.value}'
+    ansible_password: '${data.instance_password.value}'
     ansible_connection: 'winrm'
     ansible_winrm_server_cert_validation: 'ignore'
     ansible_winrm_transport: 'basic'
