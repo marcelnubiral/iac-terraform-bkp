@@ -7,6 +7,9 @@ def getGitBranchName() {
 node {
     properties([
     pipelineTriggers([pollSCM('* * * * *')])
+    // parameters([
+    //     password(name: 'KEY', description: 'Encryption key')
+    // ]) 
   ])    
     stage('AWS Credentials'){
         withCredentials([[
@@ -42,6 +45,17 @@ node {
         ).trim()
 
     } 
+
+    parameters {
+        string(name: 'awx_user', defaultValue: "${awx_user}", description: 'Enter User ID')
+        password(name: 'awx_pwd', defaultValue: "${awx_pwd}")
+    }
+
+    script {
+        wrap([$class: 'MaskPasswordsBuildWrapper', varPasswordPairs: [[password: "${awx_pwd}", var: 'PSWD']]]) {
+            sh '''echo PSWD: ${passwd}'''
+        }
+    }
 
     stage('AWX Credentials')
     withCredentials([usernamePassword(credentialsId: awxCredentials, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
@@ -100,6 +114,7 @@ def echo_all(list, bn) {
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
+                        set +x
                         sh "terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
                         }
                     }

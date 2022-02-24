@@ -1,5 +1,9 @@
-variable awx_user {}
-variable awx_pwd {}
+variable awx_user {
+    sensitive = true
+}
+variable awx_pwd {
+    sensitive = true
+}
 variable awx_host {}
 variable awx_insecure {}
 variable awx_template_id {}
@@ -23,8 +27,12 @@ variable ec2_instance_count {}
 variable ec2_root_volume_size {}
 variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
-variable ansible_win_user {}
-variable ansible_win_pwd {}
+variable ansible_win_user {
+    sensitive = true
+}
+variable ansible_win_pwd {
+    sensitive = true
+}
 
 # TAGS
 variable aws_so {}
