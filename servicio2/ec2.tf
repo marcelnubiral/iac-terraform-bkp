@@ -9,7 +9,7 @@ provider "awx" {
   hostname = var.awx_host
   insecure = var.awx_insecure
   username = var.awx_user
-  password = var.awx_pwd
+  password = "zh/rM\X64`a@E{7!"
 }
 
 data "awx_organization" "default" {
