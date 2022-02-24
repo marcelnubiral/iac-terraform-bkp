@@ -1,4 +1,4 @@
-
+variable awx_host {}
 variable awx_insecure {}
 variable awx_template_id {}
 variable awx_inventory_name {}
