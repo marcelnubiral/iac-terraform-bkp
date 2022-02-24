@@ -9,7 +9,7 @@ provider "awx" {
   hostname = var.awx_host
   insecure = var.awx_insecure
   username = "jenkins2"
-  password = "zh/rM/X64`a@E{7!"
+  password = "zh/rM/X64a@E{7!"
 }
 
 data "awx_organization" "default" {
@@ -99,4 +99,4 @@ resource "awx_host" "axwnode" {
   ]
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}
+}#

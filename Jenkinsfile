@@ -48,9 +48,9 @@ node {
     } 
 
     stage('AWX Credentials')
-    withCredentials([usernamePassword(credentialsId: awxCredentials, usernameVariable: "${awx_user}", passwordVariable: "${awx_pwd}")]) {
-        env.AWX_USER = awx_user
-        env.AWX_PASS = awx_pwd  
+    withCredentials([usernamePassword(credentialsId: awxCredentials, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        env.AWX_USER = USERNAME
+        env.AWX_PASS = PASSWORD 
     }
     
      stage('checkout'){
