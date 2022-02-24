@@ -107,7 +107,7 @@ def echo_all(list, bn) {
                         }
                     }
                 
-                    SOLO PARA EL PIPELINE DE PRODUCCION //////////
+                    // SOLO PARA EL PIPELINE DE PRODUCCION //////////
                     stage('Terraform Approval') {
                         if (getGitBranchName() == 'master') {
                             script {
