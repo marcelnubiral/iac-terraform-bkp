@@ -23,6 +23,13 @@ variable ec2_root_volume_size {}
 variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
 
+variable ansible_win_user {
+    sensitive = true
+}
+variable ansible_win_pwd {
+    sensitive = true
+}
+
 # TAGS
 variable aws_so {}
 variable aws_n {}
