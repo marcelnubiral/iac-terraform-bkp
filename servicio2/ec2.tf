@@ -16,8 +16,8 @@ data "aws_ssm_parameter" "awx_pwd" {
 provider "awx" {
   hostname = var.awx_host
   insecure = var.awx_insecure
-  username = data.awx_user.value
-  password = data.awx_pwd.value
+  username = data.aws_ssm_parameter.awx_user.value
+  password = data.aws_ssm_parameter.awx_pwd.value
 }
 
 data "awx_organization" "default" {
@@ -41,8 +41,8 @@ resource "awx_inventory_group" "default" {
     inventory_id    = data.awx_inventory.default.id
     variables       = <<YAML
     ---
-    ansible_user: '${data.instance_username.value}'
-    ansible_password: '${data.instance_password.value}'
+    ansible_user: '${data.aws_ssm_parameter.instance_username.value}'
+    ansible_password: '${data.aws_ssm_parameter.instance_password.value}'
     ansible_connection: 'winrm'
     ansible_winrm_server_cert_validation: 'ignore'
     ansible_winrm_transport: 'basic'
