@@ -49,27 +49,21 @@ node {
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
-        echo "usuario jenkins: ${jenkins_user}"
-
         awx_pwd = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
-
-        echo "pwd jenkins: ${jenkins_pwd}"
 
         ansible_win_user = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
-        echo "usuario ansible: ${ansible_win_user}"
         ansible_win_pwd = sh(
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
-        echo "pwd ansible: ${ansible_win_pwd}"
      } 
 
     
