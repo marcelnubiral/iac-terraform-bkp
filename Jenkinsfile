@@ -43,34 +43,34 @@ node {
         echo_all(forlders, bran)
     }
 
-    // stage('get parameter store values'){
-    //     jenkins_user = sh(
-    //         returnStdout: true, 
-    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
-    //     ).trim()
+     stage('get parameter store values'){
+        jenkins_user = sh(
+            returnStdout: true, 
+            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
+        ).trim()
 
-    //     echo "usuario jenkins: ${jenkins_user}"
+        echo "usuario jenkins: ${jenkins_user}"
 
-    //     jenkins_pwd = sh(
-    //         returnStdout: true, 
-    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
-    //     ).trim()
+        jenkins_pwd = sh(
+            returnStdout: true, 
+            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
+        ).trim()
 
-    //     echo "pwd jenkins: ${jenkins_pwd}"
+        echo "pwd jenkins: ${jenkins_pwd}"
 
-    //     ansible_win_user = sh(
-    //         returnStdout: true, 
-    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
-    //     ).trim()
+        ansible_win_user = sh(
+            returnStdout: true, 
+            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
+        ).trim()
 
-    //     echo "usuario ansible: ${ansible_win_user}"
-    //     ansible_win_pwd = sh(
-    //         returnStdout: true, 
-    //         script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
-    //     ).trim()
+        echo "usuario ansible: ${ansible_win_user}"
+        ansible_win_pwd = sh(
+            returnStdout: true, 
+            script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
+        ).trim()
 
-    //     echo "pwd ansible: ${ansible_win_pwd}"
-    // } 
+        echo "pwd ansible: ${ansible_win_pwd}"
+     } 
 
     
 } //END NODE
@@ -103,7 +103,7 @@ def echo_all(list, bn) {
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform plan -var-file=values."+bn+".tfvars -no-color -out myplan"
+                        sh "terraform plan -var 'jenkins_user="+jenkins_user+"' -var 'jenkins_pwd="+jenkins_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
                         }
                     }
                 
