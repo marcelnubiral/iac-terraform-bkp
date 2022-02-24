@@ -2,8 +2,6 @@ awx_inventory_name = "Arcos"
 awx_inventory_group_name = "lnxCentos"
 awx_organization_name = "Default"
 awx_template_id = 9
-awx_user = "jenkins2" #usuario jenkins en AWX
-awx_pass = "jenkins2" #password jenkins en AWX
 awx_host = "https://172.21.1.149:8043" 
 awx_insecure = "true"
 
