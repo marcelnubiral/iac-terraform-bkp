@@ -45,7 +45,6 @@ node {
     stage('prueba'){
         set +x
         sh '''
-            set +x
             curl -H 'usuario_awx:$awx_user' www.google.com
         '''
     }
