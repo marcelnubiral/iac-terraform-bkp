@@ -42,6 +42,14 @@ node {
         ).trim()
     } 
 
+    stage('prueba'){
+        set +x
+        sh "
+            set +x
+            curl -H '${awx_user}' www.google.com
+        "
+    }
+
     stage('checkout'){
         echo 'Descargando codigo de SCM'
         sh 'rm -rf *'
