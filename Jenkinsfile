@@ -90,18 +90,18 @@ def echo_all(list, bn) {
                         if (params.REQUESTED_ACTION == 'destroy') {
                             sh(
                                 returnStdout: true,
-                                script: "set +x
+                                script: "#!/usr/bin/bash
                                 terraform destroy -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color --auto-approve"
-                            ).trim()
+                            )
                         }
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
                             sh(
                                 returnStdout: true,
-                                script: "set +x
+                                script: "#!/usr/bin/bash
                                 terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
-                            ).trim()                
+                            )              
                         }
                     }
                 
