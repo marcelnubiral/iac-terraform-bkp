@@ -22,22 +22,22 @@ node {
 
     stage('get parameter store values'){
         awx_user = sh(
-            returnStdout: false, 
+            returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-user' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
         awx_pwd = sh(
-            returnStdout: false, 
+            returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/jenkins-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
         
         ansible_win_user = sh(
-            returnStdout: false, 
+            returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-user' --with-decryption --output text --query Parameter.Value"
         ).trim()
 
         ansible_win_pwd = sh(
-            returnStdout: false, 
+            returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/ansible-win-pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
     } 
@@ -93,7 +93,7 @@ def echo_all(list, bn) {
                     stage('Terraform Destroy') {
                         if (params.REQUESTED_ACTION == 'destroy') {
                             sh(
-                                returnStdout: false,
+                                returnStdout: true,
                                 script: "terraform destroy -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color --auto-approve"
                             ).trim()
                         }
@@ -101,7 +101,7 @@ def echo_all(list, bn) {
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
                             sh(
-                                returnStdout: false,
+                                returnStdout: true,
                                 script: "terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
                             ).trim()                   
                         }
