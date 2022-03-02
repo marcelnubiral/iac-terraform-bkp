@@ -44,10 +44,10 @@ node {
 
     stage('prueba'){
         set +x
-        sh "
+        sh '''
             set +x
-            curl -H '${awx_user}' www.google.com
-        "
+            curl -H 'usuario_awx: $awx_user' www.google.com
+        '''
     }
 
     stage('checkout'){
