@@ -43,7 +43,7 @@ node {
     } 
 
     stage('prueba'){
-        sh "curl -u $awx_user:$awx_pwd www.clarin.com"
+        sh "set +x curl -u $awx_user:$awx_pwd www.clarin.com"
     }
 
     stage('checkout'){
