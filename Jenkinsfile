@@ -42,10 +42,6 @@ node {
         ).trim()
     } 
 
-    stage('prueba'){
-        sh "set +x curl -u $awx_user:$awx_pwd www.clarin.com"
-    }
-
     stage('checkout'){
         echo 'Descargando codigo de SCM'
         sh 'rm -rf *'
@@ -94,16 +90,20 @@ def echo_all(list, bn) {
                         if (params.REQUESTED_ACTION == 'destroy') {
                             sh(
                                 returnStdout: false,
-                                script: "terraform destroy -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color --auto-approve"
-                            )
+                                script: "
+                                set +x
+                                terraform destroy -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color --auto-approve"
+                            ).trim()
                         }
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
                             sh(
                                 returnStdout: false,
-                                script: "terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
-                            )                   
+                                script: "
+                                set +x
+                                terraform plan -var 'awx_user="+awx_user+"' -var 'awx_pwd="+awx_pwd+"' -var 'ansible_win_user="+ansible_win_user+"' -var 'ansible_win_pwd="+ansible_win_pwd+"' -var-file=values."+bn+".tfvars -no-color -out myplan"
+                            ).trim()                
                         }
                     }
                 
