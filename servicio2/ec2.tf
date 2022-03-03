@@ -75,8 +75,8 @@ resource "aws_instance" "srv" {
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
   <powershell>
-    $pw = "${domain_pwd}" | ConvertTo-SecureString -asPlainText -Force 
-    $usr = "${domain_user}" 
+    $pw = "${var.domain_pwd}" | ConvertTo-SecureString -asPlainText -Force 
+    $usr = "${var.domain_user}" 
     $creds = New-Object System.Management.Automation.PSCredential($usr,$pw)
     Add-Computer -DomainName aws.local -Credential $creds -restart -force -verbose
   </powershell>
