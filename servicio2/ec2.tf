@@ -74,10 +74,12 @@ resource "aws_instance" "srv" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
+  <powershell>
     $pw = "${domain_pwd}" | ConvertTo-SecureString -asPlainText -Force 
     $usr = "${domain_user}" 
     $creds = New-Object System.Management.Automation.PSCredential($usr,$pw)
     Add-Computer -DomainName aws.local -Credential $creds -restart -force -verbose
+  </powershell>
   EOF
   root_block_device {
     delete_on_termination = true

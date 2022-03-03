@@ -65,6 +65,7 @@ resource "aws_instance" "srv" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
+    #!/bin/bash
     echo ${domain_pwd} | realm join -U ${domain_user} aws.local
   EOF
   root_block_device {
