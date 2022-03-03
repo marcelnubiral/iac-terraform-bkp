@@ -34,6 +34,14 @@ variable ansible_win_pwd {
     sensitive = true
 }
 
+variable domain_user {
+    sensitive = true
+}
+
+variable domain_pwd {
+    sensitive = true
+} 
+
 # TAGS
 variable aws_so {}
 variable aws_n {}
