@@ -89,12 +89,12 @@ def echo_all(list, bn) {
                 
                     stage('Terraform Destroy') {
                         if (params.REQUESTED_ACTION == 'destroy') {
-                            sh "#!/bin/bash -ex; set +x; terraform destroy -input=false -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color --auto-approve"
+                            sh "#!/bin/bash; set +x; terraform destroy -input=false -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color --auto-approve"
                         }
                     }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
-                            sh "#!/bin/bash -ex; set +x; terraform plan -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"  
+                            sh "#!/bin/bash; set +x; terraform plan -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"  
                         }
                     }
                 
