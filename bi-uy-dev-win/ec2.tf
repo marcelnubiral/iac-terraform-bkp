@@ -123,5 +123,4 @@ resource "awx_host" "axwnode" {
 //   device_name = "/dev/sdc"
 //   volume_id   = "$(aws_ebs_volume.data-vol.id)"
 //   instance_id = "test"
-}
 
