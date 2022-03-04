@@ -64,7 +64,7 @@ data "aws_ami" "windows"{
 }
 
 resource "aws_instance" "srv" {
-  #count                       = local.instances_count
+  count                       = local.instances_count
   ami                         = "${data.aws_ami.windows.id}"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
