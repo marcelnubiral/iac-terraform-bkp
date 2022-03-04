@@ -110,7 +110,7 @@ resource "awx_host" "axwnode" {
 }
 
 resource "aws_ebs_volume" "web" {
-  availability_zone = var.availability_zone
+  // availability_zone = var.availability_zone
   size              = 44
   type = "gp3"
   encrypted =   true
