@@ -48,19 +48,22 @@ variable aws_so {}
 variable aws_n {}
 variable aws_env {}
 
-variable "ebs_volume_count" {
-  type        = number
-  default     = 0
-}
+// variable "ebs_volume_count" {
+//   type        = number
+//   default     = 0
+// }
 
-variable "ec2_ebs_volume_size" {
-  type        = list(any)
-  default = [
-    10
-  ]
-}
+// variable "ec2_ebs_volume_size" {
+//   type        = list(any)
+//   default = [
+//     10
+//   ]
+// }
 
 
-variable "availability_zones" {
-  type        = list(any)
+// variable "availability_zones" {
+//   type        = list(any)
+// }
+
+
 }
