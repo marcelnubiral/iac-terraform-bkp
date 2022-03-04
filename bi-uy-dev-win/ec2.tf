@@ -83,12 +83,12 @@ resource "aws_instance" "srv" {
     Add-Computer -DomainName aws.local -Credential $creds -restart -force -verbose
   </powershell>
   EOF
-  root_block_device {
-    delete_on_termination = true
-    encrypted             = true
-    kms_key_id            = var.ec2_root_kms_id
-    volume_size           = var.ec2_root_volume_size
-    volume_type           = var.ec2_root_volume_type
+  // root_block_device {
+  //   delete_on_termination = true
+  //   encrypted             = true
+  //   kms_key_id            = var.ec2_root_kms_id
+  //   volume_size           = var.ec2_root_volume_size
+  //   volume_type           = var.ec2_root_volume_type
   }
   tags = {
     Name                      = "test"
