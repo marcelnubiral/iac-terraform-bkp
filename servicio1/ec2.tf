@@ -65,6 +65,7 @@ resource "aws_instance" "srv" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
+    !#/bin/bash
     echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
   EOF
   root_block_device {
@@ -93,4 +94,4 @@ resource "awx_host" "axwnode" {
   ]
   enabled      = true
   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}###
+}
