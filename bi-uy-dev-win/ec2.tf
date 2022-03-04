@@ -34,8 +34,8 @@ resource "awx_inventory_group" "default" {
 YAML
 }
 
-#locals {
-#  instances_count = 1
+locals {
+  instances_count = 1
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
