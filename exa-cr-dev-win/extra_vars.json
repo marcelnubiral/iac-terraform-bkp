@@ -1,0 +1,11 @@
+{
+        "host_param": "windows",
+        "netbackup" : "true",
+        "lvm" : [
+        ],
+        "nagios": "true",
+        "user_pmp": "true",
+        "user_nss": "true",
+        "timezone" : "America/Argentina/Buenos_Aires"
+        
+}
