@@ -109,18 +109,5 @@ resource "awx_host" "axwnode" {
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
 
-resource "aws_ebs_volume" "srv" {
-  availability_zone = var.availability_zone
-  size              = 4
-  type = "gp3"
-  encrypted =   true
-  tags = {
-    Name = "nubi"
-  }
-}  
-resource "aws_volume_attachment" "srv" {
-  device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.srv.id
-  instance_id = aws_instance.srv.id
-}
+
   
