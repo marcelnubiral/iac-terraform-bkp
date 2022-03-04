@@ -26,6 +26,7 @@ variable ec2_instance_count {}
 variable availability_zone {}
 
 variable ec2_root_volume_size {}
+variable ec2_root_volume_size_2 {}
 variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
 variable ansible_win_user {
