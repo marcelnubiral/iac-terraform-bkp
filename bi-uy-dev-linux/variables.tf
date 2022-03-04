@@ -51,7 +51,7 @@ variable "ebs_volume_size"{
 variable "ebs_volume_count"{
     default = 0
 }
-variable "ebs_optimized"{}
+#variable "ebs_optimized"{}
 variable "ebs_device_name"  {
     type = list
     default = null
