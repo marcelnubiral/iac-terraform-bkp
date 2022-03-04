@@ -108,3 +108,14 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
+
+}
+resource "aws_ebs_volume" "ebsvolume" {
+  availability_zone = "us-east-1a"
+  size = 10
+  encrypted = false
+  tags = {
+    name = "raghavendar"
+  }
+
+}
