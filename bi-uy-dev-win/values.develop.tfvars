@@ -18,7 +18,6 @@ ec2_public_ip = false
 ec2_base_name = "webserver-"
 ec2_instance_count = 2
 ec2_root_volume_size = 32
-ec2_root_volume_size_2 = 32
 ec2_root_volume_type = "gp3"
 ec2_root_kms_id = "e69c23d6-8e7d-4629-a3b1-1103cb5e8b4f"
 

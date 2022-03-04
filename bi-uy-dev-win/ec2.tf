@@ -36,6 +36,8 @@ YAML
 
 locals {
   instances_count = 1
+  ec2_ebs_volume_size     = [30, 30]
+  ec2_device_names        = ["/dev/sdd", "/dev/sde"]
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -124,3 +126,17 @@ resource "awx_host" "axwnode" {
 //   volume_id   = "$(aws_ebs_volume.data-vol.id)"
 //   instance_id = "test"
 
+}
+
+resource "aws_ebs_volume" "ebs_volume" {
+  count             = var.instance_count * var.ebs_volume_count
+  availability_zone = "${element(aws_instance.ec2_instance.*.availability_zone, floor (count.index/var.ebs_volume_count))}"
+  size              = var.ec2_ebs_volume_size[count.index%var.ebs_volume_count]
+}
+
+resource "aws_volume_attachment" "volume_attachement" {
+  count       = var.instance_count * var.ebs_volume_count
+  volume_id   = aws_ebs_volume.ebs_volume.*.id[count.index]
+  device_name = var.ec2_device_names[count.index%var.ebs_volume_count]
+  instance_id = "${element(aws_instance.ec2_instance.*.id, floor (count.index/var.ebs_volume_count))}"
+}
