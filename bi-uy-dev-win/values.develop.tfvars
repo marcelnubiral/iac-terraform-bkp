@@ -8,6 +8,7 @@ awx_insecure = "true"
 aws_region     = "us-east-1"
 aws_account_id = "884913712919"
 aws_role_name  = "IAM-ROL-IAC-JNK"
+availability_zone= "us-east-1a"
 
 ec2_instance_type = "t3.small"
 ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
