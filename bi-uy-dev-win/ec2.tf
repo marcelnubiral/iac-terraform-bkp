@@ -108,3 +108,13 @@ resource "awx_host" "axwnode" {
   enabled   = true
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
+
+resource "aws_ebs_volume" "web" {
+  availability_zone = var.availability_zone
+  size              = 44
+  type = "gp3"
+  encrypted =   true
+  tags = {
+    Name = "nubiral"
+  }
+}
