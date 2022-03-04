@@ -121,5 +121,5 @@ resource "aws_ebs_volume" "srv" {
 resource "aws_volume_attachment" "srv" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.srv.id
-  instance_id = aws_instance.srv.id
+  instance_id = aws_instance.srv[count.index]
 }
