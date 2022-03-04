@@ -50,9 +50,6 @@ node {
             returnStdout: true, 
             script:"aws --region=us-east-1 ssm get-parameter --name '/nubiral/sandbox/packer-build/domain_pwd' --with-decryption --output text --query Parameter.Value"
         ).trim()
-
-        echo "domain user: '${domain_user}'"
-        echo "domain pwd: '${domain_pwd}'"
     } 
 
 
