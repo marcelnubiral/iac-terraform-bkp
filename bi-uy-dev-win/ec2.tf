@@ -36,8 +36,8 @@ YAML
 
 locals {
   instances_count = 1
-  ec2_ebs_volume_size     = [30, 30]
-  ec2_device_names        = ["/dev/sdd", "/dev/sde"]
+  // ec2_ebs_volume_size     = [30, 30]
+  // ec2_device_names        = ["/dev/sdd", "/dev/sde"]
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -83,12 +83,12 @@ resource "aws_instance" "srv" {
     Add-Computer -DomainName aws.local -Credential $creds -restart -force -verbose
   </powershell>
   EOF
-  // root_block_device {
-  //   delete_on_termination = true
-  //   encrypted             = true
-  //   kms_key_id            = var.ec2_root_kms_id
-  //   volume_size           = var.ec2_root_volume_size
-  //   volume_type           = var.ec2_root_volume_type
+  root_block_device {
+    delete_on_termination = true
+    encrypted             = true
+    kms_key_id            = var.ec2_root_kms_id
+    volume_size           = var.ec2_root_volume_size
+    volume_type           = var.ec2_root_volume_type
   }
   tags = {
     Name                      = "test"
@@ -128,15 +128,11 @@ resource "awx_host" "axwnode" {
 
 }
 
-resource "aws_ebs_volume" "ebs_volume" {
-  count             = var.instance_count * var.ebs_volume_count
-  availability_zone = "${element(aws_instance.ec2_instance.*.availability_zone, floor (count.index/var.ebs_volume_count))}"
-  size              = var.ec2_ebs_volume_size[count.index%var.ebs_volume_count]
-}
+resource "aws_ebs_volume" "example" {
+  availability_zone = "us-east-1"
+  size              = 40
 
-resource "aws_volume_attachment" "volume_attachement" {
-  count       = var.instance_count * var.ebs_volume_count
-  volume_id   = aws_ebs_volume.ebs_volume.*.id[count.index]
-  device_name = var.ec2_device_names[count.index%var.ebs_volume_count]
-  instance_id = "${element(aws_instance.ec2_instance.*.id, floor (count.index/var.ebs_volume_count))}"
+  tags = {
+    Name = "HelloWorld"
+  }
 }
