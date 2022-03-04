@@ -34,8 +34,8 @@ resource "awx_inventory_group" "default" {
 YAML
 }
 
-locals {
-  instances_count = 1
+#locals {
+#  instances_count = 1
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -64,7 +64,7 @@ data "aws_ami" "windows"{
 }
 
 resource "aws_instance" "srv" {
-  count                       = local.instances_count
+  #count                       = local.instances_count
   ami                         = "${data.aws_ami.windows.id}"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
@@ -121,5 +121,6 @@ resource "aws_ebs_volume" "srv" {
 resource "aws_volume_attachment" "srv" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.srv.id
-  instance_id = aws_instance.srv[count.index]
+  instance_id = aws_instance.srv.id
 }
+  
