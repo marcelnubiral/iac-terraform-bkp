@@ -122,6 +122,6 @@ resource "aws_ebs_volume" "data-vol" {
 resource "aws_volume_attachment" "srv-vol" {
   device_name = "/dev/sdc"
   volume_id   = "$(aws_ebs_volume.data-vol.id)"
-  instance_id = "${element(aws_instance.srv.*, count.index)}"
+  instance_id = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
 }
 
