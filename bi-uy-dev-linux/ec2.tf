@@ -74,15 +74,6 @@ resource "aws_instance" "srv" {
     volume_size           = var.ec2_root_volume_size
     volume_type           = var.ec2_root_volume_type
   }
-
-  // root_block_device  {      
-  //   ebs_device_name        = var.ebs_device_name
-  //   ebs_volume_size        = var.ebs_volume_size
-  //   ebs_volume_count       = var.ebs_volume_count
-  //   delete_on_termination = true
-  //   encrypted             = true
-  //   kms_key_id            = var.ec2_root_kms_id
-  // }
   tags = {
     Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
@@ -103,4 +94,3 @@ resource "awx_host" "axwnode" {
   enabled      = true
   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }#
-

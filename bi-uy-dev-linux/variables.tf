@@ -42,30 +42,3 @@ variable domain_pwd {
 variable aws_so {}
 variable aws_n {}
 variable aws_env {}
-
-// disco
-// variable "ebs_volume_size"{ 
-//     type = list
-//     default = null
-// }
-// variable "ebs_volume_count"{
-//     default = 0
-// }
-// #variable "ebs_optimized"{}
-// variable "ebs_device_name"  {
-//     type = list
-//     default = null
-// }
-// variable "root_block_device"{
-//     type = map(string)
-// }
-
-// variable "ebs" {
-//     type = map
-//     description = "ebs mapping and properties"
-//     default = {
-//         "device_name"   = "/dev/xvda"
-//         "volume_size"   = 60
-//         "volume_type"   = "gp2"
-//     }
-// }
