@@ -117,6 +117,7 @@ resource "aws_ebs_volume" "srv" {
   tags = {
     Name = "nubi"
   }
+}  
 resource "aws_volume_attachment" "srv" {
   device_name = "/dev/sdh"
   volume_id   = aws_ebs_volume.srv.id
