@@ -111,7 +111,7 @@ resource "awx_host" "axwnode" {
 
 resource "aws_ebs_volume" "data-vol" {
   availability_zone = var.availability_zone
-  size              = 49
+  size              = 30
   type = "gp3"
   encrypted =   true
   tags = {
