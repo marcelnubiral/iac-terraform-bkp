@@ -19,8 +19,8 @@ variable ec2_security_groups { type = list }
 variable ec2_public_ip {}
 variable ec2_base_name {}
 
-#variable ec2_root_volume_size {}
-#variable ec2_root_volume_type {}
+variable ec2_root_volume_size {}
+variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
 
 variable ansible_win_user {
@@ -43,29 +43,29 @@ variable aws_so {}
 variable aws_n {}
 variable aws_env {}
 
-///disco
-variable "ebs_volume_size"{ 
-    type = list
-    default = null
-}
-variable "ebs_volume_count"{
-    default = 0
-}
-#variable "ebs_optimized"{}
-variable "ebs_device_name"  {
-    type = list
-    default = null
-}
-variable "root_block_device"{
-    type = map(string)
-}
+// disco
+// variable "ebs_volume_size"{ 
+//     type = list
+//     default = null
+// }
+// variable "ebs_volume_count"{
+//     default = 0
+// }
+// #variable "ebs_optimized"{}
+// variable "ebs_device_name"  {
+//     type = list
+//     default = null
+// }
+// variable "root_block_device"{
+//     type = map(string)
+// }
 
-variable "ebs" {
-    type = map
-    description = "ebs mapping and properties"
-    default = {
-        "device_name"   = "/dev/xvda"
-        "volume_size"   = 60
-        "volume_type"   = "gp2"
-    }
-}
+// variable "ebs" {
+//     type = map
+//     description = "ebs mapping and properties"
+//     default = {
+//         "device_name"   = "/dev/xvda"
+//         "volume_size"   = 60
+//         "volume_type"   = "gp2"
+//     }
+// }
