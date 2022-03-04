@@ -89,7 +89,7 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   tags = {
-    Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+    Name                      = "test"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"
@@ -122,6 +122,6 @@ resource "aws_ebs_volume" "data-vol" {
 resource "aws_volume_attachment" "srv-vol" {
   device_name = "/dev/sdc"
   volume_id   = "$(aws_ebs_volume.data-vol.id)"
-  instance_id = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+  instance_id = "test"
 }
 
