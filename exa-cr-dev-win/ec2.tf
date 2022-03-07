@@ -117,12 +117,5 @@ resource "awx_host" "axwnode" {
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
 
-resource "aws_ebs_volume" "ebsvolume" {
-  device_name = "/dev/sdg"
-  availability_zone = "us-east-1a"
-  size = 30
-  encrypted = false
-  tags = {
-    name = "ebs"
-  }
+
 
