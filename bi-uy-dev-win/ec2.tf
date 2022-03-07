@@ -36,6 +36,8 @@ YAML
 
 locals {
   instances_count = 1
+  // ec2_ebs_volume_size     = [30, 30]
+  // ec2_device_names        = ["/dev/sdd", "/dev/sde"]
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -109,19 +111,28 @@ resource "awx_host" "axwnode" {
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
 
-resource "aws_ebs_volume" "data-vol" {
-  availability_zone = var.availability_zone
-  size              = 30
-  type = "gp3"
-  encrypted =   true
+// resource "aws_ebs_volume" "data-vol" {
+//   availability_zone = var.availability_zone
+//   size              = 30
+//   type = "gp3"
+//   encrypted =   true
+//   tags = {
+//     Name = "data volume"
+//   }
+
+// }
+// resource "aws_volume_attachment" "srv-vol" {
+//   device_name = "/dev/sdc"
+//   volume_id   = "$(aws_ebs_volume.data-vol.id)"
+//   instance_id = "test"
+
+}
+
+resource "aws_ebs_volume" "example" {
+  availability_zone = "us-east-1"
+  size              = 40
+
   tags = {
-    Name = "data volume"
+    Name = "HelloWorld"
   }
-
 }
-resource "aws_volume_attachment" "srv-vol" {
-  device_name = "/dev/sdc"
-  volume_id   = "$(aws_ebs_volume.data-vol.id)"
-  instance_id = "test"
-}
-

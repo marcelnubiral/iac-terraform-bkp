@@ -75,6 +75,7 @@ resource "aws_instance" "srv" {
     volume_size           = var.ec2_root_volume_size
     volume_type           = var.ec2_root_volume_type
   }
+
   tags = {
     Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
