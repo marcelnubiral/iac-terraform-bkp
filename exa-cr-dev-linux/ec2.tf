@@ -79,7 +79,7 @@ resource "aws_instance" "srv" {
     delete_on_termination = true
     kms_key_id            = var.ec2_root_kms_id
     encrypted             = false
-    volume_size_ebs       = var.ec2_root_volume_size_ebs
+    volume_size           = var.ec2_root_volume_size_ebs
     volume_type           = var.ec2_root_volume_type
     
   }
