@@ -75,11 +75,12 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   ebs_block_device {
-    device_name = "ebs"
-    encrypted = false
     delete_on_termination = true
-    volume_type = var.ec2_root_volume_type
+    kms_key_id            = var.ec2_root_kms_id
+    encrypted = false
     volume_size_ebs  = var.ec2_root_volume_size_ebs
+    volume_type = var.ec2_root_volume_type
+    
   }
   tags = {
     Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
