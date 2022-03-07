@@ -85,9 +85,17 @@ resource "aws_instance" "srv" {
     delete_on_termination = true
     encrypted             = true
     kms_key_id            = var.ec2_root_kms_id
-    volume_size           = var.ec2_root_volume_size
+    volume_size           = var.ec2_root_volume_size1
     volume_type           = var.ec2_root_volume_type
   }
+  ebs_block_device {
+    device_name = "ebs"
+    encrypted = false
+    delete_on_termination = true
+    volume_type = var.ec2_root_volume_type
+    volume_size_ebs  = var.ec2_root_volume_size_ebs
+  }
+  
   tags = {
     Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
@@ -110,11 +118,11 @@ resource "awx_host" "axwnode" {
 }
 
 resource "aws_ebs_volume" "ebsvolume" {
+  device_name = "/dev/sdg"
   availability_zone = "us-east-1a"
-  size = 10
+  size = 30
   encrypted = false
   tags = {
-    name = "raghavendar"
+    name = "ebs"
   }
 
-}
