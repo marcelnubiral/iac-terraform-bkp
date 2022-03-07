@@ -93,7 +93,7 @@ resource "aws_instance" "srv" {
     encrypted = false
     delete_on_termination = true
     volume_type = var.ec2_root_volume_type
-    volume_size_ebs  = var.ec2_root_volume_size_ebs
+    volume_size_ebs  = var.ec2_root_volume_size
   }
   
   tags = {
