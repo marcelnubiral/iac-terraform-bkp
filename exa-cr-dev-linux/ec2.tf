@@ -78,7 +78,7 @@ resource "aws_instance" "srv" {
     device_name           = "/dev/sda1"
     delete_on_termination = true
     kms_key_id            = var.ec2_root_kms_id
-    encrypted             = false
+    encrypted             = true
     volume_size           = var.ec2_root_volume_size_ebs
     volume_type           = var.ec2_root_volume_type
     
