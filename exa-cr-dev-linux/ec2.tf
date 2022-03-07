@@ -75,11 +75,12 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   ebs_block_device {
+    device_name = "ebsw"
     delete_on_termination = true
     kms_key_id            = var.ec2_root_kms_id
-    encrypted = false
-    volume_size_ebs  = var.ec2_root_volume_size_ebs
-    volume_type = var.ec2_root_volume_type
+    encrypted             = false
+    volume_size_ebs       = var.ec2_root_volume_size_ebs
+    volume_type           = var.ec2_root_volume_type
     
   }
   tags = {
