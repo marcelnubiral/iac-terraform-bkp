@@ -23,9 +23,9 @@ variable ec2_security_groups { type = list }
 variable ec2_public_ip {}
 variable ec2_base_name {}
 variable ec2_instance_count {}
-variable availability_zone {}
 
 variable ec2_root_volume_size {}
+variable ec2_root_volume_size_ebs {}
 variable ec2_root_volume_type {}
 variable ec2_root_kms_id {}
 variable ansible_win_user {
@@ -47,23 +47,3 @@ variable domain_pwd {
 variable aws_so {}
 variable aws_n {}
 variable aws_env {}
-
-// variable "ebs_volume_count" {
-//   type        = number
-//   default     = 0
-// }
-
-// variable "ec2_ebs_volume_size" {
-//   type        = list(any)
-//   default = [
-//     10
-//   ]
-// }
-
-
-// variable "availability_zones" {
-//   type        = list(any)
-// }
-
-
-}

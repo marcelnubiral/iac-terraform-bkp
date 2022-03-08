@@ -36,8 +36,6 @@ YAML
 
 locals {
   instances_count = 1
-  // ec2_ebs_volume_size     = [30, 30]
-  // ec2_device_names        = ["/dev/sdd", "/dev/sde"]
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -90,8 +88,16 @@ resource "aws_instance" "srv" {
     volume_size           = var.ec2_root_volume_size
     volume_type           = var.ec2_root_volume_type
   }
+  ebs_block_device {
+    device_name  = "/dev/sda1"
+    encrypted = true
+    delete_on_termination = true
+    volume_type = var.ec2_root_volume_type
+    volume_size  = var.ec2_root_volume_size_ebs
+  }
+  
   tags = {
-    Name                      = "test"
+    Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"
@@ -111,28 +117,5 @@ resource "awx_host" "axwnode" {
   variables = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
 
-// resource "aws_ebs_volume" "data-vol" {
-//   availability_zone = var.availability_zone
-//   size              = 30
-//   type = "gp3"
-//   encrypted =   true
-//   tags = {
-//     Name = "data volume"
-//   }
 
-// }
-// resource "aws_volume_attachment" "srv-vol" {
-//   device_name = "/dev/sdc"
-//   volume_id   = "$(aws_ebs_volume.data-vol.id)"
-//   instance_id = "test"
 
-}
-
-resource "aws_ebs_volume" "example" {
-  availability_zone = "us-east-1"
-  size              = 40
-
-  tags = {
-    Name = "HelloWorld"
-  }
-}

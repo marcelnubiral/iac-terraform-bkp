@@ -15,8 +15,9 @@ ec2_key_name = "key_arcos_sandbox"
 ec2_security_groups = ["sg-07a89f708579b7195"]
 ec2_public_ip = false
 ec2_base_name = "webserver-"
-ec2_root_volume_size = 40
-ec2_root_volume_type = "gp2"
+ec2_root_volume_size =45
+ec2_root_volume_size_ebs = 30
+ec2_root_volume_type = "gp3"
 ec2_root_kms_id = "e69c23d6-8e7d-4629-a3b1-1103cb5e8b4f"
 
 #TAGS

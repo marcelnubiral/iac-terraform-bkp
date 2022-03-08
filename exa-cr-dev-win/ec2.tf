@@ -89,11 +89,11 @@ resource "aws_instance" "srv" {
     volume_type           = var.ec2_root_volume_type
   }
   ebs_block_device {
-    device_name = "ebs"
-    encrypted = false
+    device_name  = "/dev/sda1"
+    encrypted = true
     delete_on_termination = true
     volume_type = var.ec2_root_volume_type
-    volume_size_ebs  = var.ec2_root_volume_size
+    volume_size  = var.ec2_root_volume_size_ebs
   }
   
   tags = {
