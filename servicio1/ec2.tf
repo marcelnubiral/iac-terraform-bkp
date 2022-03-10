@@ -67,6 +67,7 @@ resource "aws_instance" "srv" {
   user_data = <<EOF
     #cloud-boothook
     #!/bin/sh
+    mkdir /home/prueba
     echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
   EOF
   root_block_device {
