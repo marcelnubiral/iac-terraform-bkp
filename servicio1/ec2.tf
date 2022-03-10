@@ -65,10 +65,9 @@ resource "aws_instance" "srv" {
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
-    #cloud-boothook
-    #!/bin/sh
-    mkdir /home/prueba
-    echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
+  #! /bin/bash
+  sudo mkdir /home/prueba
+  sudo echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
   EOF
   root_block_device {
     delete_on_termination = true
