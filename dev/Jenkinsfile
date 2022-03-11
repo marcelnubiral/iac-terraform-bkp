@@ -81,7 +81,7 @@ def echo_all(list, bn) {
         echo "directorio ${item}"
         t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
         echo "directorio ${t}"  
-        if ("${t}" == "1") {
+        if ("${t}" == "0") {
             dir("${item}") {
                 template_id = sh(script: "cat values.develop.tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
                 echo "TEMPLATE_ID: , ${template_id}"
