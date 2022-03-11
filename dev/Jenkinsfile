@@ -84,7 +84,12 @@ def echo_all(list, bn) {
             dir("${item}") {
                 // template_id = sh(script: "cat values."+bn+".tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
                 // echo "TEMPLATE_ID: , ${template_id}"
-                
+
+                    stage('prueba pwd'){
+                        sh 'pwd'
+                        sh 'ls -lrt'
+                    }
+
                     stage('Terraform Init'){
                         sh 'rm -rf .terraform'
                         sh 'terraform init -upgrade'
