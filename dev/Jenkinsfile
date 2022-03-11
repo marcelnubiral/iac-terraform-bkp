@@ -68,7 +68,7 @@ node {
    
     stage('Get services'){
         forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$2}' | sort | uniq", returnStdout: true).trim().split('\n')
-        echo "directorio ${folder}"
+        echo "directorio ${folders}"
         echo_all(forlders, bran)
     }
 
@@ -78,9 +78,9 @@ node {
 } //END NODE
 def echo_all(list, bn) {
     list.each { item ->
-        
+        echo "directorio ${item}
         t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
-        echo "directorio ${folder}"  
+        echo "directorio ${t}"  
         if ("${t}" == "1") {
             dir("${item}") {
                 template_id = sh(script: "cat values.develop.tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
