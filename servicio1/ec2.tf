@@ -66,7 +66,9 @@ resource "aws_instance" "srv" {
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
   #! /bin/bash
-  sudo yum update -y
+  sudo yum update -y 
+  sudo mkdir /home/prueba
+  sudo echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
   EOF
   root_block_device {
     delete_on_termination = true
@@ -95,4 +97,4 @@ resource "awx_host" "axwnode" {
   ]
   enabled      = true
   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}#
+}
