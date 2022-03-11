@@ -79,7 +79,7 @@ node {
 def echo_all(list, bn) {
     list.each { item ->
         echo "directorio ${item}"
-        t = sh(script: "if [[ $(find ${item} -type f  | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi", returnStdout: true).trim()
+        t = sh(script: "if [ $(find ${item} -type f  | wc -l) -gt 0 ]; then echo 1; else echo 0; fi", returnStdout: true).trim()
        // t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
         echo "directorio ${t}"  
         if ("${t}" == "1") {
