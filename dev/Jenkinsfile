@@ -82,8 +82,8 @@ def echo_all(list, bn) {
     
         if ("${t}" == "1") {
             dir("${item}") {
-                // template_id = sh(script: "cat values."+bn+".tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
-                // echo "TEMPLATE_ID: , ${template_id}"
+                template_id = sh(script: "cat values.develop.tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
+                echo "TEMPLATE_ID: , ${template_id}"
 
                     stage('prueba pwd'){
                         sh 'pwd'
