@@ -1,5 +1,5 @@
 awx_inventory_name = "Arcos"
-awx_inventory_group_name = "lnxCentos"
+#awx_inventory_group_name = "lnxCentos"
 awx_organization_name = "Default"
 awx_template_id = 9
 awx_host = "https://172.21.1.149:8043" 
@@ -23,5 +23,3 @@ ec2_root_kms_id = "e69c23d6-8e7d-4629-a3b1-1103cb5e8b4f"
 aws_so  = "LNX"
 aws_n   = "001" 
 aws_env = "dev"
-
-#
