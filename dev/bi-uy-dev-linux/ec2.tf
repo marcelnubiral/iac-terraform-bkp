@@ -20,10 +20,10 @@ data "awx_inventory" "default" {
   name = var.awx_inventory_name
 }
 
-resource "awx_inventory_group" "default" {
-  name         = var.awx_inventory_group_name
-  inventory_id = data.awx_inventory.default.id
-}
+# resource "awx_inventory_group" "default" {
+#   name         = var.awx_inventory_group_name
+#   inventory_id = data.awx_inventory.default.id
+# }
 
 locals {
   instances_count = 1
