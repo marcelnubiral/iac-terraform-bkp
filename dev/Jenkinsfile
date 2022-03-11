@@ -1,6 +1,6 @@
 String awxCredentials = "05fecac6-c0d8-4692-a0fb-ce4c3823f0b7"
 String AWS_DEFAULT_REGION = "us-east-1"
-String bran = "dev"
+String bran = "develop"
 def getGitBranchName() {
     return scm.branches[0].name
 }
@@ -68,6 +68,7 @@ node {
    
     stage('Get services'){
         forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$2}' | sort | uniq", returnStdout: true).trim().split('\n')
+        echo "directorio ${folder}"
         echo_all(forlders, bran)
     }
 
@@ -79,7 +80,7 @@ def echo_all(list, bn) {
     list.each { item ->
         
         t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
-    
+        echo "directorio ${folder}"  
         if ("${t}" == "1") {
             dir("${item}") {
                 template_id = sh(script: "cat values.develop.tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
