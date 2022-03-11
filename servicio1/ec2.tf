@@ -66,8 +66,7 @@ resource "aws_instance" "srv" {
   subnet_id                   = var.ec2_subnet_id
   user_data = <<EOF
   #! /bin/bash
-  sudo mkdir /home/prueba
-  sudo echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
+  sudo yum update -y
   EOF
   root_block_device {
     delete_on_termination = true
