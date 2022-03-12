@@ -11,7 +11,7 @@ aws_role_name  = "IAM-ROL-IAC-JNK"
 
 ec2_instance_type = "t3.small"
 ec2_subnet_id = "subnet-0b53a6ae43e71d4b3"
-ec2_key_name = "key_arcos_sandbox_2"
+ec2_key_name = "key_arcos_sandbox_3"
 ec2_security_groups = ["sg-07a89f708579b7195"]
 ec2_public_ip = false
 ec2_base_name = "webserver-"
