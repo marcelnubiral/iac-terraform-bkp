@@ -2,7 +2,7 @@
 provider "aws" {
   region = "us-east-1"
   assume_role {
-    role_arn = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_role_name}"
+    role_arn = "arn:aws:iam::884913712919:role/IAM-ROL-IAC-JNK"
   }
 }
 
@@ -33,9 +33,4 @@ resource "aws_instance" "web" {
   }
 }
 
-output "public_ip" {
-  value       = aws_instance.web.public_ip
-}
 
-variable aws_account_id {}
-variable aws_role_name {}
