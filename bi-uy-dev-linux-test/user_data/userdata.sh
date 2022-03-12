@@ -1,5 +1,5 @@
 #!/bin/bash -x
-curl  www.google.com
+curl  www.google.com.ar
 # cat << EOF > /home/ubuntu/test.txt
 # // ARCHIVO DE PRUEBA
 #    Contenido del archivo de texto.
