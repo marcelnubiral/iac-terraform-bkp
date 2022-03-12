@@ -5,25 +5,25 @@ provider "aws" {
   }
 }
 
-// provider "awx" {
-//   hostname = var.awx_host
-//   insecure = var.awx_insecure
-//   username = var.awx_user
-//   password = var.awx_pwd
-// }
+provider "awx" {
+  hostname = var.awx_host
+  insecure = var.awx_insecure
+  username = var.awx_user
+  password = var.awx_pwd
+}
 
-// data "awx_organization" "default" {
-//   name = var.awx_organization_name
-// }
+data "awx_organization" "default" {
+  name = var.awx_organization_name
+}
 
-// data "awx_inventory" "default" {
-//   name = var.awx_inventory_name
-// }
+data "awx_inventory" "default" {
+  name = var.awx_inventory_name
+}
 
-// resource "awx_inventory_group" "default" {
-//   name         = var.awx_inventory_group_name
-//   inventory_id = data.awx_inventory.default.id
-// }
+resource "awx_inventory_group" "default" {
+  name         = var.awx_inventory_group_name
+  inventory_id = data.awx_inventory.default.id
+}
 
 locals {
   instances_count = 1
@@ -64,10 +64,10 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
-  #user_data                   = filebase64("${path.module}/user-data/userdata.sh")
-  user_data = <<EOF
-    echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
-  EOF
+  user_data                   = filebase64("${path.module}/user-data/userdata.sh")
+  #user_data = <<EOF
+  #  echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
+  #EOF
   root_block_device {
     delete_on_termination = true
     encrypted             = true
@@ -93,14 +93,14 @@ resource "aws_instance" "srv" {
   }
 }
 
-// resource "awx_host" "axwnode" {
-//   count        = local.instances_count
-//   name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
-//   description  = "Nodo agregado desde terraform"
-//   inventory_id = data.awx_inventory.default.id
-//   group_ids    = [
-//     awx_inventory_group.default.id
-//   ]
-//   enabled      = true
-//   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-// }
+resource "awx_host" "axwnode" {
+  count        = local.instances_count
+  name         = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+  description  = "Nodo agregado desde terraform"
+  inventory_id = data.awx_inventory.default.id
+  group_ids    = [
+    awx_inventory_group.default.id
+  ]
+  enabled      = true
+  variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+}
