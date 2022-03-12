@@ -1,4 +1,4 @@
-awx_inventory_name = "Arcos"
+awx_inventory_name = "test"
 awx_inventory_group_name = "lnxCentos"
 awx_organization_name = "Default"
 awx_template_id = 9
