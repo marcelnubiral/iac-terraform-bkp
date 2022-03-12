@@ -5,20 +5,20 @@ provider "aws" {
   }
 }
 
-provider "awx" {
-  hostname = var.awx_host
-  insecure = var.awx_insecure
-  username = var.awx_user
-  password = var.awx_pwd
-}
+// provider "awx" {
+//   hostname = var.awx_host
+//   insecure = var.awx_insecure
+//   username = var.awx_user
+//   password = var.awx_pwd
+// }
 
-data "awx_organization" "default" {
-  name = var.awx_organization_name
-}
+// data "awx_organization" "default" {
+//   name = var.awx_organization_name
+// }
 
-data "awx_inventory" "default" {
-  name = var.awx_inventory_name
-}
+// data "awx_inventory" "default" {
+//   name = var.awx_inventory_name
+// }
 
 // resource "awx_inventory_group" "default" {
 //   name         = var.awx_inventory_group_name
