@@ -64,7 +64,7 @@ resource "aws_instance" "srv" {
   source_dest_check           = false
   instance_type               = var.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
-  user_data                   = filebase64("${path.module}/user-data/userdata.sh")
+  user_data                   = filebase64("${path.module}/user_data/userdata.sh")
   #user_data = <<EOF
   #  echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
   #EOF
