@@ -98,7 +98,7 @@ resource "awx_host" "axwnode" {
   description  = "Nodo agregado desde terraform"
   inventory_id = data.awx_inventory.default.id
   group_ids    = [
-    awx_inventory_group.default.id
+  awx_inventory_group.default.id
   ]
   enabled      = true
   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
