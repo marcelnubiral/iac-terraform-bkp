@@ -37,4 +37,5 @@ output "public_ip" {
   value       = aws_instance.web.public_ip
 }
 
-
+variable aws_account_id {}
+variable aws_role_name {}
