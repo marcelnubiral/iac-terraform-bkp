@@ -1,11 +1,11 @@
-// variable awx_user {}
-// variable awx_pwd {}
-// variable awx_host {}
-// variable awx_insecure {}
-// variable awx_template_id {}
-// variable awx_inventory_name {}
-// variable awx_inventory_group_name {}
-// variable awx_organization_name{}
+variable awx_user {}
+variable awx_pwd {}
+variable awx_host {}
+variable awx_insecure {}
+variable awx_template_id {}
+variable awx_inventory_name {}
+variable awx_inventory_group_name {}
+variable awx_organization_name{}
 
 variable aws_region {}
 variable aws_account_id {}
