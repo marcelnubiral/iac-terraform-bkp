@@ -101,6 +101,6 @@ resource "awx_host" "axwnode" {
   group_ids    = [
     awx_inventory_group.default.id
   ]
-  enabled      = true
+  enabled      = false
   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
 }
