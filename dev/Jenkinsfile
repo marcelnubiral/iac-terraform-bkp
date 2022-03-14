@@ -224,7 +224,6 @@ def echo_all(list, bn) {
         
         t = sh(script: "if [ -d $bn/$item  ];then echo 1; else echo 0; fi", returnStdout: true).trim()
 
-        if [[ $(find ${item} -type f  | wc -l) -gt 0 ]]; then echo "ok"; fi
     
         if ("${t}" == "1") {
             dir("${bn}/${item}") {
