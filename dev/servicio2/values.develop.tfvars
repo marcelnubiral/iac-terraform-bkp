@@ -1,7 +1,7 @@
 awx_inventory_name = "Arcos"
 awx_inventory_group_name = "windows"
-awx_organization_name = "Default"
-awx_template_id = 10
+awx_organization_name = "default2"
+awx_template_id = 11
 awx_host = "https://172.21.1.149:8043" 
 awx_insecure = "true"
 
