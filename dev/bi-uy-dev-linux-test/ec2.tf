@@ -20,10 +20,10 @@ data "awx_inventory" "default" {
   name = var.awx_inventory_name
 }
 
-resource "awx_inventory_group" "default" {
-  name         = var.awx_inventory_group_name
-  inventory_id = data.awx_inventory.default.id
-}
+// resource "awx_inventory_group" "default" {
+//   name         = var.awx_inventory_group_name
+//   inventory_id = data.awx_inventory.default.id
+// }
 
 locals {
   instances_count = 1
@@ -93,14 +93,14 @@ resource "aws_instance" "srv" {
   }
 }
 
-resource "awx_host" "axwnode" {
-  count        = local.instances_count
-  name         = "NUB-${var.aws_so}${count.index+1}${var.aws_n}-${var.aws_env}"
-  description  = "Nodo agregado desde terraform"
-  inventory_id = data.awx_inventory.default.id
-  group_ids    = [
-    awx_inventory_group.default.id
-  ]
-  enabled      = true
-  variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
-}
+// resource "awx_host" "axwnode" {
+//   count        = local.instances_count
+//   name         = "NUB-${var.aws_so}${count.index+1}${var.aws_n}-${var.aws_env}"
+//   description  = "Nodo agregado desde terraform"
+//   inventory_id = data.awx_inventory.default.id
+//   group_ids    = [
+//     awx_inventory_group.default.id
+//   ]
+//   enabled      = true
+//   variables    = "ansible_host: ${element(aws_instance.srv.*.private_ip, count.index)}"
+// }
