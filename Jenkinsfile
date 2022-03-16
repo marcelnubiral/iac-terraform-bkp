@@ -58,6 +58,7 @@ node {
         sh 'rm -rf *'
         checkout scm
         echo "Cloning files from branch =  ${getGitBranchName()}"
+        sh 'curl -k https://172.21.1.149:8043'
     } 
     stage ('Plugins Provider AWX'){
         sh 'rm -rf ~/.terraform.d/'
