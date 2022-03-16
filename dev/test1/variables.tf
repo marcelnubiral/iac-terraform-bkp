@@ -12,7 +12,8 @@ variable aws_account_id {}
 variable aws_role_name {}
 
 
-variable ec2_instance_type {}
+#variable ec2_instance_type {}
+
 variable ec2_subnet_id {}
 variable ec2_key_name {}
 variable ec2_security_groups { type = list }
@@ -47,13 +48,18 @@ variable aws_env {}
 variable "aws_region" {
   description = "AWS region where the resources will be created"
 
-  type = object({
+  type = map({
     dev  = string
     prod = string
   })
 
   default = {
     dev  = "us-east-1"
-    prod = "us-east-1"
+    prod = "us-east-2"
   }
+}
+
+variable "instance_type" {
+	type    = string
+	default = "null"
 }
