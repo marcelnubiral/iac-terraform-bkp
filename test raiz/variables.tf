@@ -7,7 +7,7 @@ variable awx_inventory_name {}
 variable awx_inventory_group_name {}
 variable awx_organization_name{}
 
-#variable aws_region {}
+variable aws_region {}
 variable aws_account_id {}
 variable aws_role_name {}
 
@@ -45,16 +45,3 @@ variable aws_so {}
 variable aws_n {}
 variable aws_env {}
 
-variable "aws_region" {
-  description = "AWS region where the resources will be created"
-
-  type = object({
-    dev  = string
-    prod = string
-  })
-
-  default = {
-    dev  = "us-east-1"
-    prod = "us-east-2"
-  }
-}
