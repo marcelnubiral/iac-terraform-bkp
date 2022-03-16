@@ -59,7 +59,7 @@ variable "aws_region" {
   }
 }
 
-variable "instance_type" {
+variable "ec2_einstance_type" {
 	type    = string
-	default = ""
+	default = "null"
 }
