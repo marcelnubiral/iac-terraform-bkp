@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = lookup(var.aws_region, local.env)
   assume_role {
     role_arn = "arn:aws:iam::${var.aws_account_id}:role/${var.aws_role_name}"
   }
@@ -27,6 +27,7 @@ data "awx_inventory" "default" {
 
 locals {
   instances_count = 1
+  env = terraform.workspace == "default" ? "dev" : terraform.workspace
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
