@@ -5,12 +5,12 @@ provider "aws" {
   }
 }
 
-// provider "awx" {
-//   hostname = var.awx_host
-//   insecure = var.awx_insecure
-//   username = var.awx_user
-//   password = var.awx_pwd
-// }
+provider "awx" {
+  hostname = var.awx_host
+  insecure = var.awx_insecure
+  username = var.awx_user
+  password = var.awx_pwd
+}
 
 // data "awx_organization" "default" {
 //   name = var.awx_organization_name
@@ -38,7 +38,7 @@ data "aws_ami" "oracle"{
   most_recent = true
   filter {
     name = "name"
-    values = ["Arcos-Oracle-AMI-*"]  
+    values = ["Arcos-Oracle-AMI-*"]
    }
   filter {
     name   = "virtualization-type"
@@ -82,7 +82,7 @@ resource "aws_instance" "srv" {
     encrypted             = true
     volume_size           = var.ec2_root_volume_size_ebs
     volume_type           = var.ec2_root_volume_type
-    
+
   }
   tags = {
     Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
