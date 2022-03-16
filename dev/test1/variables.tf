@@ -48,7 +48,7 @@ variable aws_env {}
 variable "aws_region" {
   description = "AWS region where the resources will be created"
 
-  type = map({
+  type = object({
     dev  = string
     prod = string
   })
