@@ -53,7 +53,7 @@ variable "aws_region" {
   })
 
   default = {
-    dev  = "eu-central-1"
+    dev  = "us-east-1"
     prod = "us-east-1"
   }
 }
