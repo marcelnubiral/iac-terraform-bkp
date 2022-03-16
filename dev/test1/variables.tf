@@ -12,7 +12,7 @@ variable aws_account_id {}
 variable aws_role_name {}
 
 
-#variable ec2_instance_type {}
+variable ec2_instance_type {}
 
 variable ec2_subnet_id {}
 variable ec2_key_name {}
@@ -57,9 +57,4 @@ variable "aws_region" {
     dev  = "us-east-1"
     prod = "us-east-2"
   }
-}
-
-variable "ec2_einstance_type" {
-	type    = string
-	default = "null"
 }
