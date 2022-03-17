@@ -5,20 +5,20 @@ provider "aws" {
   }
 }
 
-provider "awx" {
-  hostname = var.awx_host
-  insecure = var.awx_insecure
-  username = var.awx_user
-  password = var.awx_pwd
-}
+// provider "awx" {
+//   hostname = var.awx_host
+//   insecure = var.awx_insecure
+//   username = var.awx_user
+//   password = var.awx_pwd
+// }
 
-data "awx_organization" "default" {
-  name = var.awx_organization_name
-}
+// data "awx_organization" "default" {
+//   name = var.awx_organization_name
+// }
 
-data "awx_inventory" "default" {
-  name = var.awx_inventory_name
-}
+// data "awx_inventory" "default" {
+//   name = var.awx_inventory_name
+// }
 
 
 locals {
@@ -40,9 +40,9 @@ locals {
   ]
 }
 
-data "aws_iam_instance_profile" "s3-access-role" {
- name = "AmazonSSMRoleForInstancesQuickSetup"
-}
+// data "aws_iam_instance_profile" "s3-access-role" {
+//  name = "AmazonSSMRoleForInstancesQuickSetup"
+// }
 
 // data "aws_ami" "oracle"{
 //   owners = ["884913712919"]
@@ -73,7 +73,7 @@ resource "aws_instance" "srv" {
   #ami                         = "${data.aws_ami.oracle.id}"
   ami                         = each.value.ami
   key_name                    = var.ec2_key_name
-  iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
+  #iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   vpc_security_group_ids      = each.value.ec2_security_groups
   associate_public_ip_address = true
   source_dest_check           = false
