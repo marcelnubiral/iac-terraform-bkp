@@ -74,7 +74,7 @@ resource "aws_instance" "srv" {
   ami                         = each.value.ami
   key_name                    = var.ec2_key_name
   #iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
-  security_group              = each.value.security_groups
+  security_groups              = each.value.security_groups
   associate_public_ip_address = true
   source_dest_check           = false
   instance_type               = each.value.instance_type
