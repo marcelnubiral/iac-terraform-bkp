@@ -22,7 +22,7 @@ provider "aws" {
 
 
 locals {
-  instances_count = 1
+  #instances_count = 1
   instances = flatten(local.serverconfig)
 }
 
@@ -69,7 +69,7 @@ resource "aws_instance" "srv" {
   
   for_each = {for server in local.instances: server.instance_name =>  server}
   
-  count                       = local.instances_count
+  #count                       = local.instances_count
   #ami                         = "${data.aws_ami.oracle.id}"
   ami                         = each.value.ami
   key_name                    = var.ec2_key_name
