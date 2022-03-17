@@ -74,11 +74,11 @@ resource "aws_instance" "srv" {
   ami                         = each.value.ami
   key_name                    = var.ec2_key_name
   #iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
-  vpc_security_group_ids      = each.value.ec2_security_groups
+  vpc_security_group_ids      = each.value.security_groups
   associate_public_ip_address = true
   source_dest_check           = false
-  instance_type               = each.value.ec2_instance_type
-  subnet_id                   = var.ec2_subnet_id
+  instance_type               = each.value.instance_type
+  subnet_id                   = var.subnet_id
   user_data                   = filebase64("${path.module}/user_data/userdata.sh")
   #user_data = <<EOF
   #  echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
