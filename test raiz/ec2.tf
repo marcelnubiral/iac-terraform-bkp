@@ -78,7 +78,7 @@ resource "aws_instance" "srv" {
   associate_public_ip_address = true
   source_dest_check           = false
   instance_type               = each.value.instance_type
-  subnet_id                   = var.subnet_id
+  subnet_id                   = each.value.subnet_id
   user_data                   = filebase64("${path.module}/user_data/userdata.sh")
   #user_data = <<EOF
   #  echo ${var.domain_pwd} | realm join -U ${var.domain_user} aws.local
@@ -100,7 +100,7 @@ resource "aws_instance" "srv" {
     
   }
   tags = {
-    Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
+    #Name                      = "NUB-${var.aws_so}${count.index}${var.aws_n}-${var.aws_env}"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"
