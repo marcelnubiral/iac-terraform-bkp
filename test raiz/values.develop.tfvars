@@ -28,6 +28,7 @@ aws_env = "dev"
 configuration = [
   {
     "application_name" : "dev",
+    "ami" : "ami-089582bef738dbf6a",
     "instance_type" : "t2.medium",
     "no_of_instances" : "1",
     "subnet_id" : "subnet-0b53a6ae43e71d4b3",
@@ -35,6 +36,7 @@ configuration = [
   },
   {
     "application_name" : "qa",
+    "ami" : "ami-089582bef738dbf6a",
     "instance_type" : "t2.medium",
     "no_of_instances" : "1",
     "subnet_id" : "subnet-0b53a6ae43e71d4b3",
@@ -42,6 +44,7 @@ configuration = [
   },
   {
     "application_name" : "prod",
+    "ami" : "ami-089582bef738dbf6a",
     "instance_type" : "t3.micro",
     "no_of_instances" : "1",
     "subnet_id" : "subnet-0b53a6ae43e71d4b3",
