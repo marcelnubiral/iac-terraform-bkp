@@ -34,7 +34,7 @@ locals {
         instance_type = srv.instance_type
         subnet_id   = srv.subnet_id
         ami = srv.ami
-        security_groups = srv.vpc_security_group_ids
+        security_groups = srv.security_group
       }
     ]
   ]
