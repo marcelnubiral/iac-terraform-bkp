@@ -45,3 +45,7 @@ variable aws_so {}
 variable aws_n {}
 variable aws_env {}
 
+variable "configuration" {
+  description = "The total configuration, List of Objects/Dictionary"
+  default = [{}]
+}

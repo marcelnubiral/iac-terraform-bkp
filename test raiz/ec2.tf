@@ -23,7 +23,21 @@ data "awx_inventory" "default" {
 
 locals {
   instances_count = 1
+  instances = flatten(local.serverconfig)
+}
 
+locals {
+  serverconfig = [
+    for srv in var.configuration : [
+      for i in range(1, srv.no_of_instances+1) : {
+        instance_name = "${srv.application_name}-${i}"
+        instance_type = srv.instance_type
+        subnet_id   = srv.subnet_id
+        #ami = srv.ami
+        security_groups = srv.vpc_security_group_ids
+      }
+    ]
+  ]
 }
 
 data "aws_iam_instance_profile" "s3-access-role" {
@@ -52,14 +66,17 @@ data "aws_ami" "oracle"{
 }
 
 resource "aws_instance" "srv" {
+  
+  for_each = {for server in local.instances: server.instance_name =>  server}
+  
   count                       = local.instances_count
   ami                         = "${data.aws_ami.oracle.id}"
   key_name                    = var.ec2_key_name
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
-  vpc_security_group_ids      = var.ec2_security_groups
+  vpc_security_group_ids      = each.value.ec2_security_groups
   associate_public_ip_address = true
   source_dest_check           = false
-  instance_type               = var.ec2_instance_type
+  instance_type               = each.value.ec2_instance_type
   subnet_id                   = var.ec2_subnet_id
   user_data                   = filebase64("${path.module}/user_data/userdata.sh")
   #user_data = <<EOF
