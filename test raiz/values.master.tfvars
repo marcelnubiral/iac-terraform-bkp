@@ -26,14 +26,14 @@ aws_n   = "001"
 aws_env = "dev"
 
 configuration = [
-  {
-    "application_name" : "develop",
-    "ami" : "ami-089582bef738dbf6a",
-    "instance_type" : "t2.medium",
-    "no_of_instances" : "1",
-    "subnet_id" : "subnet-0b53a6ae43e71d4b3",
-    "security_groups" : ["sg-07a89f708579b7195"]
-  }
+  // {
+  //   "application_name" : "dev",
+  //   "ami" : "ami-089582bef738dbf6a",
+  //   "instance_type" : "t2.medium",
+  //   "no_of_instances" : "1",
+  //   "subnet_id" : "subnet-0b53a6ae43e71d4b3",
+  //   "security_groups" : ["sg-07a89f708579b7195"]
+  // }
   // {
   //   "application_name" : "qa",
   //   "ami" : "ami-089582bef738dbf6a",
@@ -42,13 +42,13 @@ configuration = [
   //   "subnet_id" : "subnet-0b53a6ae43e71d4b3",
   //   "security_groups" : ["sg-07a89f708579b7195"]
   // },
-  // {
-  //   "application_name" : "prod",
-  //   "ami" : "ami-089582bef738dbf6a",
-  //   "instance_type" : "t3.micro",
-  //   "no_of_instances" : "1",
-  //   "subnet_id" : "subnet-0b53a6ae43e71d4b3",
-  //   "security_groups" : ["sg-07a89f708579b7195"]
-  // }
+  {
+    "application_name" : "master",
+    "ami" : "ami-089582bef738dbf6a",
+    "instance_type" : "t3.micro",
+    "no_of_instances" : "1",
+    "subnet_id" : "subnet-0b53a6ae43e71d4b3",
+    "security_groups" : ["sg-07a89f708579b7195"]
+  }
   
 ]

@@ -69,7 +69,9 @@ node {
    
     stage('Get services'){
         forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$1}' | sort | uniq", returnStdout: true).trim().split('\n')
-        echo_all(forlders, bran)
+        // ambientes = sh(script: "${getGitBranchName()}"
+        // echo "ambientes"
+        echo_all(forlders, ${getGitBranchName()})
     }
 
     
