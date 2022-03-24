@@ -79,29 +79,32 @@ node {
 
     
 } //END NODE
-def echo_all(list, bn) {
-    list.each { item ->
+// def echo_all(list, bn) {
+//     list.each { item ->
         
-        t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
+//         t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
     
-        if ("${t}" == "1") {
-            dir("${item}") {
-                template_id = sh(script: "cat values."+bn+".tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
-                echo "TEMPLATE_ID: , ${template_id}"
+//         if ("${t}" == "1") {
+//             dir("${item}") {
+//                 template_id = sh(script: "cat values."+bn+".tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
+//                 echo "TEMPLATE_ID: , ${template_id}"
                 
                     stage('Terraform Init'){
                         // sh 'rm -rf .terraform'
                         sh 'terraform init'
+                        sh 'terraform workspace select ' + bn
+                        sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"
+                        sh "terraform apply -no-color -input=false myplan"
                     }
-                    stage('Terraform workspace select'){
-                          try {
-                               sh 'terraform workspace new ' + bn
-                         } catch (err) {
-                              sh 'terraform workspace select ' + bn
-                              sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"
-                              sh "terraform apply -no-color -input=false myplan"
-                          }
-                    }
+                    // stage('Terraform workspace select'){
+                    //       try {
+                    //            sh 'terraform workspace new ' + bn
+                    //      } catch (err) {
+                    //           sh 'terraform workspace select ' + bn
+                    //           sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"
+                    //           sh "terraform apply -no-color -input=false myplan"
+                    //       }
+                    // }
 
                     stage ('crear userdata.sh'){
                         sh "set +x; echo '\n echo ${domain_pwd} | realm join -U ${domain_user} aws.local'  >> /var/lib/jenkins/workspace/IAC-INFRA-AWS/${item}/user_data/userdata.sh"
