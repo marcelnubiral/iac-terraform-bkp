@@ -79,15 +79,15 @@ node {
 
     
 } //END NODE
-// def echo_all(list, bn) {
-//     list.each { item ->
+def echo_all(list, bn) {
+    list.each { item ->
         
-//         t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
+        t = sh(script: "if [ -d \"${item}\" ];then echo 1; else echo 0; fi", returnStdout: true).trim()
     
-//         if ("${t}" == "1") {
-//             dir("${item}") {
-//                 template_id = sh(script: "cat values."+bn+".tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
-//                 echo "TEMPLATE_ID: , ${template_id}"
+        if ("${t}" == "1") {
+            dir("${item}") {
+                template_id = sh(script: "cat values."+bn+".tfvars | grep awx_template_id | awk -F' = ' '{print \$2}'", returnStdout: true).trim()
+                echo "TEMPLATE_ID: , ${template_id}"
                 
                     stage('Terraform Init'){
                         // sh 'rm -rf .terraform'
