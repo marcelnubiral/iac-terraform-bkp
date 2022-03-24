@@ -110,4 +110,3 @@ resource "aws_instance" "srv_lnx" {
   }
 }
 
-#
