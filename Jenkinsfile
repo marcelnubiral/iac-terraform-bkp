@@ -90,7 +90,7 @@ def echo_all(list, bn) {
                 echo "TEMPLATE_ID: , ${template_id}"
                 
                     stage('Terraform Init'){
-                        #sh 'rm -rf .terraform'
+                        // sh 'rm -rf .terraform'
                         sh 'terraform init'
                     }
                     stage('Terraform workspace select'){
