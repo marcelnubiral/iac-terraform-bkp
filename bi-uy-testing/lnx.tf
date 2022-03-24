@@ -66,7 +66,7 @@ data "aws_ami" "oracle"{
   }
 }
 
-resource "aws_instance" "srv" {
+resource "aws_instance" "srv_lnx" {
   
   for_each = {for server in local.instances: server.instance_name =>  server}
   
