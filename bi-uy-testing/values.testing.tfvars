@@ -76,7 +76,7 @@ configuration_win = [
     "application_name" : "testing",
     "ami" : "ami-089582bef738dbf6a",
     "instance_type" : "t3.micro",
-    "no_of_instances" : "1",
+    "no_of_instances" : "0",
     "subnet_id" : "subnet-0b53a6ae43e71d4b3",
     "security_groups" : ["sg-07a89f708579b7195"]
   }
