@@ -7,12 +7,12 @@ terraform {
     key = "lnx/lnxservice.tfstate"
     role_arn = "arn:aws:iam::884913712919:role/IAM-ROL-IAC-JNK"
   }
-  // required_providers {
-  //   awx = {
-  //     source = "terraform.arcos/local/awx"
-  //     version = "0.2.3"
-  //   }
-  // }  
+  required_providers {
+    awx = {
+      source = "terraform.arcos/local/awx"
+      version = "0.2.3"
+    }
+  }  
 }
 
 
