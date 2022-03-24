@@ -41,9 +41,9 @@ locals {
   ]
 }
 
-data "aws_iam_instance_profile" "s3-access-role" {
- name = "AmazonSSMRoleForInstancesQuickSetup"
-}
+// data "aws_iam_instance_profile" "s3-access-role" {
+//  name = "AmazonSSMRoleForInstancesQuickSetup"
+// }
 
 data "aws_ami" "oracle"{
   owners = ["884913712919"]
@@ -74,7 +74,7 @@ resource "aws_instance" "srv_lnx" {
   ami                         = "${data.aws_ami.oracle.id}"
   #ami                         = each.value.ami
   key_name                    = var.ec2_key_name
-  iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
+  #iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   security_groups              = each.value.security_groups
   associate_public_ip_address = false
   source_dest_check           = true
