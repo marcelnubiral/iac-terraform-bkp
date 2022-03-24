@@ -92,7 +92,8 @@ def echo_all(list, bn) {
                     stage('Terraform Init'){
                         sh 'rm -rf .terraform'
                         sh 'terraform init'
-                        // sh 'terraform workspace select ' + bn
+                        sh 'terraform workspace select ' + bn
+                        sh 'terraform remote config -backend=S3 -backend-config="bucket=repoadsbx2" -backend-config="key=lnx/lnxservice.tfstate" -backend-config="region=us-east-1"'
                         sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"
                         sh "terraform apply -no-color -input=false myplan"
                     }
