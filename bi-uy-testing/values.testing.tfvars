@@ -24,7 +24,7 @@ aws_pais = "uy"
 aws_servicio = "bi"
 
 #DISCOS
-ec2_root_volume_size = ["33","32"]
+ec2_root_volume_size = ["33","33"]
 ec2_root_volume_size_win = ["30","30"]
 
 # INSTANCIAS LNX WIN
