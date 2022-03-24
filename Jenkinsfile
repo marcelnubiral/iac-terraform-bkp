@@ -91,50 +91,45 @@ def echo_all(list, bn) {
                 
                     stage('Terraform Init'){
                         sh 'rm -rf .terraform'
-                        sh 'terraform init'
-                        sh 'terraform workspace select ' + bn
-                        sh "terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.testing.tfvars -no-color -out myplan"
-                        sh "terraform apply -no-color -input=false myplan"
+                        sh 'terraform init -upgrade'
                     }
-                    // stage('Terraform workspace select'){
-                    //       try {
-                    //            sh 'terraform workspace new ' + bn
-                    //      } catch (err) {
-                    //           sh 'terraform workspace select ' + bn
-                    //           sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"
-                    //           sh "terraform apply -no-color -input=false myplan"
-                    //       }
-                    // }
+                    stage('Terraform workspace select'){
+                          try {
+                               sh 'terraform workspace new ' + bn
+                         } catch (err) {
+                              sh 'terraform workspace select ' + bn
+                          }
+                    }
 
                     stage ('crear userdata.sh'){
                         sh "set +x; echo '\n echo ${domain_pwd} | realm join -U ${domain_user} aws.local'  >> /var/lib/jenkins/workspace/IAC-INFRA-AWS/${item}/user_data/userdata.sh"
                     }
                 
-                //     stage('Terraform Destroy') {
-                //         if (params.REQUESTED_ACTION == 'destroy') {
-                //             sh "set +x; terraform destroy -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color --auto-approve"
-                //         }
-                //     }
-                //     stage('Terraform Plan'){
-                //         if (params.REQUESTED_ACTION != 'destroy') {
-                //             sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"  
-                //         }
-                //     }
+                    stage('Terraform Destroy') {
+                        if (params.REQUESTED_ACTION == 'destroy') {
+                            sh "set +x; terraform destroy -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.testing.tfvars -no-color --auto-approve"
+                        }
+                    }
+                    stage('Terraform Plan'){
+                        if (params.REQUESTED_ACTION != 'destroy') {
+                            sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.testing.tfvars -no-color -out myplan"  
+                        }
+                    }
                 
-                //     // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                //     stage('Terraform Approval') {
-                //         if (getGitBranchName() == 'master') {
-                //             script {
-                //                 def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-                //             }
-                //         }
-                //     }
-                // // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                //     stage('Terraform Apply'){
-                //         if (params.REQUESTED_ACTION != 'destroy') {
-                //         sh "terraform apply -no-color -input=false myplan"
-                //         }
-                //     }
+                    // SOLO PARA EL PIPELINE DE PRODUCCION //////////
+                    stage('Terraform Approval') {
+                        if (getGitBranchName() == 'master') {
+                            script {
+                                def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+                            }
+                        }
+                    }
+                // SOLO PARA EL PIPELINE DE PRODUCCION //////////
+                    stage('Terraform Apply'){
+                        if (params.REQUESTED_ACTION != 'destroy') {
+                        sh "terraform apply -no-color -input=false myplan"
+                        }
+                    }
                     
                     //time
                     // stage ("wait_prior_starting_smoke_testing") {
