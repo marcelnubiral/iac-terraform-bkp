@@ -52,4 +52,4 @@ configuration_win = [
     "security_groups" : ["sg-07a89f708579b7195"]
   }
  
-]
+]#
