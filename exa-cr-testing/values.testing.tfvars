@@ -34,23 +34,23 @@ ec2_root_volume_size_win = ["30","30"]
 
 # INSTANCIAS LNX WIN
 configuration = [
-  {
-    "application_name" : "develop",
-  // "ami" : "ami-089582bef738dbf6a",
-    "instance_type" : "t2.medium",
-    "no_of_instances" : "1",
-    "subnet_id" : "subnet-0b53a6ae43e71d4b3",
-    // "volume_size : ["21","21"],
-    "security_groups" : ["sg-07a89f708579b7195"]
-  }
   // {
-  //   "application_name" : "testing",
-  //   "ami" : "ami-089582bef738dbf6a",
+  //   "application_name" : "develop",
+  // // "ami" : "ami-089582bef738dbf6a",
   //   "instance_type" : "t2.medium",
   //   "no_of_instances" : "1",
   //   "subnet_id" : "subnet-0b53a6ae43e71d4b3",
+  //   // "volume_size : ["21","21"],
   //   "security_groups" : ["sg-07a89f708579b7195"]
-  // },
+  // }
+  {
+    "application_name" : "testing",
+    "ami" : "ami-089582bef738dbf6a",
+    "instance_type" : "t3.micro",
+    "no_of_instances" : "1",
+    "subnet_id" : "subnet-0b53a6ae43e71d4b3",
+    "security_groups" : ["sg-07a89f708579b7195"]
+  }
   // {
   //   "application_name" : "master",
   //   "ami" : "ami-089582bef738dbf6a",
@@ -75,7 +75,7 @@ configuration_win = [
   {
     "application_name" : "testing",
     "ami" : "ami-089582bef738dbf6a",
-    "instance_type" : "t2.medium",
+    "instance_type" : "t3.micro",
     "no_of_instances" : "1",
     "subnet_id" : "subnet-0b53a6ae43e71d4b3",
     "security_groups" : ["sg-07a89f708579b7195"]

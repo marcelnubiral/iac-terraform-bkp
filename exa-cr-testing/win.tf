@@ -118,7 +118,7 @@ resource "aws_instance" "srv_win" {
   }
 
   tags = {
-    Name                      = "bi-uy-${var.aws_env}-${var.aws_so_win}"
+    Name                      = "exa-cr-${var.aws_env}-${var.aws_so_win}"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"
