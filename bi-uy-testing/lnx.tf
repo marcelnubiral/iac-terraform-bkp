@@ -77,7 +77,7 @@ resource "aws_instance" "srv_lnx" {
   iam_instance_profile        = data.aws_iam_instance_profile.s3-access-role.name
   security_groups              = each.value.security_groups
   associate_public_ip_address = false
-  source_dest_check           = false
+  source_dest_check           = true
   instance_type               = each.value.instance_type
   subnet_id                   = each.value.subnet_id
   #volume_size                 = each.volume_size
