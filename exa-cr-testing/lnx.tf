@@ -102,7 +102,7 @@ resource "aws_instance" "srv" {
     
   }
   tags = {
-    Name                      = "exa-cr-${var.aws_env}-${var.aws_so}"
+    Name                      = "exa-cr-${var.aws_env}-${var.aws_so}-01"
     productname               = "iac-nubiral"
     environment               = var.aws_env
     shutdownschedule          = "8a20"

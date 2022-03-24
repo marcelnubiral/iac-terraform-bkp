@@ -10,18 +10,9 @@ variable awx_organization_name{}
 variable aws_region {}
 variable aws_account_id {}
 variable aws_role_name {}
-
-
-#variable ec2_instance_type {}
-#variable ec2_subnet_id {}
-#variable ec2_subnet_id {}
 variable ec2_key_name {}
-#variable ec2_security_groups { type = list }
 variable ec2_public_ip {}
 variable ec2_base_name {}
-#variable ec2_instance_count {}
-#variable ec2_root_volume_size_ebs {}
-
 variable ec2_root_volume_size { type = list }
 variable ec2_root_volume_size_win { type = list }
 variable ec2_root_volume_type {}
@@ -51,11 +42,11 @@ variable aws_pais {}
 variable aws_servicio {}
 
 variable "configuration" {
-  description = "The total configuration, List of Objects/Dictionary"
+  description = "Configuracion de Instancias Linux"
   default = [{}]
 }
 
 variable "configuration_win" {
-  description = "The total configuration, List of Objects/Dictionary"
+  description = "Configuracion de Instancias Windows"
   default = [{}]
 }
