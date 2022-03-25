@@ -68,12 +68,12 @@ node {
         sh 'cp -r terraform-provider-awx  ~/.terraform.d/plugins/terraform.arcos/local/awx/0.2.3/linux_amd64/'     
     }    
    
-    stage('Get services'){
-        forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$1}' | sort | uniq", returnStdout: true).trim().split('\n')
-        // ambientes = sh(script: "${getGitBranchName()}"
-        echo 'ambiente: '+ branch
-        echo_all(forlders,branch)
-    }
+    // stage('Get services'){
+    //     forlders = sh(script: "git log -1 --name-only --oneline | tail -n +2 | awk -F'/' '{print \$1}' | sort | uniq", returnStdout: true).trim().split('\n')
+    //     // ambientes = sh(script: "${getGitBranchName()}"
+    //     echo 'ambiente: '+ branch
+    //     echo_all(forlders,branch)
+    // }
 
     
 
