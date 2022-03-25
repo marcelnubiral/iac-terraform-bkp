@@ -108,5 +108,5 @@ resource "aws_instance" "srv_lnx" {
     shutdownschedule          = "8a20"
     productowneremail         = "Gonzalo.Aresrivas@ar.mcd.com"
   }
-}#
+}
 
