@@ -1,6 +1,6 @@
 String awxCredentials = "05fecac6-c0d8-4692-a0fb-ce4c3823f0b7"
 String AWS_DEFAULT_REGION = "us-east-1"
-String bran = "testing"
+String bran = "develop"
 def getGitBranchName() {
     return scm.branches[0].name
 }
@@ -90,16 +90,14 @@ def echo_all(list, bn) {
                 echo "TEMPLATE_ID: , ${template_id}"
                 
                     stage('Terraform Init'){
-                        // sh 'rm -rf .terraform'
-                        sh 'terraform init'
+                        sh 'rm -rf .terraform'
+                        sh 'terraform init -upgrade'
                     }
                     stage('Terraform workspace select'){
                           try {
                                sh 'terraform workspace new ' + bn
                          } catch (err) {
                               sh 'terraform workspace select ' + bn
-                              sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"
-                              sh "terraform apply -no-color -input=false myplan"
                           }
                     }
 
