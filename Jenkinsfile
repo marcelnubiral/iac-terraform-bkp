@@ -9,17 +9,17 @@
 //     properties([
 //     pipelineTriggers([pollSCM('* * * * *')])
 //   ])    
-    // stage('AWS Credentials'){
-    //     withCredentials([[
-    //         $class: 'AmazonWebServicesCredentialsBinding',
-    //         credentialsId: 'IAM_USR_SVC_IAC_JNK',
-    //         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-    //         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-    //     ]]) {
-    //         env.AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
-    //         env.AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY            
-    //     }
-    // }
+//     stage('AWS Credentials'){
+//         withCredentials([[
+//             $class: 'AmazonWebServicesCredentialsBinding',
+//             credentialsId: 'IAM_USR_SVC_IAC_JNK',
+//             accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+//             secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+//         ]]) {
+//             env.AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
+//             env.AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY            
+//         }
+//     }
 
 //     stage('get parameter store values'){
 //         awx_user = sh(
@@ -164,17 +164,9 @@ pipeline {
     }
 
 
-    stage('AWS Credentials'){
-        withCredentials([[
-            $class: 'AmazonWebServicesCredentialsBinding',
-            credentialsId: 'IAM_USR_SVC_IAC_JNK',
-            accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-            secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-            env.AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
-            env.AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY            
-        }
-    }
+     environment {
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
 
 //    agent  any
@@ -188,7 +180,7 @@ pipeline {
                  script{
                         dir("terraform")
                         {
-                            git "https://github.com:goldenarch/iac-terraform.git"
+                            git "https://github.com/easyawslearn/Terraform-Tutorial.git"
                         }
                     }
                 }
