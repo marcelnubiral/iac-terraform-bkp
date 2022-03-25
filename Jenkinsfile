@@ -109,7 +109,7 @@ def echo_all(list, bn) {
                     //     if (params.REQUESTED_ACTION == 'destroy') {
                     //         sh "set +x; terraform destroy -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color --auto-approve"
                     //     }
-                    }
+                    // }
                     stage('Terraform Plan'){
                         if (params.REQUESTED_ACTION != 'destroy') {
                             sh "set +x; terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.${bn}.tfvars -no-color -out myplan"  
