@@ -99,7 +99,7 @@ def echo_all(list, bn) {
                          } catch (err) {
                               sh 'terraform workspace select ' + bn
                           }
-                    // }
+                    }
 
                     // stage ('crear userdata.sh'){
                     //     sh "set +x; echo '\n echo ${domain_pwd} | realm join -U ${domain_user} aws.local'  >> /var/lib/jenkins/workspace/IAC-INFRA-AWS/${item}/user_data/userdata.sh"
