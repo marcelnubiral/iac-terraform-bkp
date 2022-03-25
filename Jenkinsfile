@@ -90,8 +90,9 @@ def echo_all(list, bn) {
                 echo "TEMPLATE_ID: , ${template_id}"
                 
                     stage('Terraform Init'){
-                        // sh 'rm -rf .terraform'
+                        sh 'rm -rf .terraform'
                         sh 'terraform init'
+                        sh 'terraform workspace select ' + bn
                         sh "terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.testing.tfvars -no-color -out myplan"
                     }
                     // stage('Terraform workspace select'){
