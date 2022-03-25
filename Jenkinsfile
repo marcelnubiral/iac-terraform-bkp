@@ -146,7 +146,7 @@ def echo_all(list, bn) {
                     //         ]
                     //     }
                     // } 
-                }
+                // }
      }  else {
             echo "Dir not found"
         }
