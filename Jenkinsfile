@@ -94,7 +94,8 @@ def echo_all(list, bn) {
                         sh 'terraform init'
                         // sh 'terraform workspace new ' + bn
                         // sh 'terraform workspace select ' + bn
-                        sh "terraform plan -var 'domain_user=${domain_user}' -var 'domain_pwd=${domain_pwd}' -var 'awx_user=${awx_user}' -var 'awx_pwd=${awx_pwd}' -var 'ansible_win_user=${ansible_win_user}' -var 'ansible_win_pwd=${ansible_win_pwd}' -var-file=values.testing.tfvars -no-color -out myplan"
+                        sh 'terraform plan'
+                        sh 'terraform apply -auto-approve'
                     }
                     // stage('Terraform workspace select'){
                     //       try {
@@ -120,19 +121,19 @@ def echo_all(list, bn) {
                     // }
                 
                     // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    stage('Terraform Approval') {
-                        if (getGitBranchName() == 'master') {
-                            script {
-                                def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
-                            }
-                        }
-                    }
-                // SOLO PARA EL PIPELINE DE PRODUCCION //////////
-                    stage('Terraform Apply'){
-                        if (params.REQUESTED_ACTION != 'destroy') {
-                        sh "terraform apply -no-color -input=false myplan"
-                        }
-                    }
+                //     stage('Terraform Approval') {
+                //         if (getGitBranchName() == 'master') {
+                //             script {
+                //                 def userInput = input(id: 'confirm', message: 'Apply Terraform?', parameters: [ [$class: 'BooleanParameterDefinition', defaultValue: false, description: 'Apply terraform', name: 'confirm'] ])
+                //             }
+                //         }
+                //     }
+                // // SOLO PARA EL PIPELINE DE PRODUCCION //////////
+                //     stage('Terraform Apply'){
+                //         if (params.REQUESTED_ACTION != 'destroy') {
+                //         sh "terraform apply -no-color -input=false myplan"
+                //         }
+                //     }
                     
                     //time
                     // stage ("wait_prior_starting_smoke_testing") {
