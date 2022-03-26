@@ -29,7 +29,7 @@ aws_servicio = "bi"
 
 #DISCOS
 ec2_root_volume_size = ["33","32"]
-ec2_root_volume_size_win = ["30","30"]
+ec2_root_volume_size_win = ["31","31"]
 
 # INSTANCIAS LNX WIN
 configuration = [
