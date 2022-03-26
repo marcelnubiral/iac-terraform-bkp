@@ -5,7 +5,7 @@ terraform {
     dynamodb_table = "iac-nubiral-terraform-tfstate"
     region = "us-east-1"
     key = "lnx/lnxservice.tfstate"
-    role_arn = "arn:aws:iam::884913712919:role/IAM-ROL-IAC-JNK"
+    #role_arn = "arn:aws:iam::884913712919:role/IAM-ROL-IAC-JNK"
   }
   required_providers {
     awx = {
